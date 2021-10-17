@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://billtsu.github.io</id>
     <title>日常记录</title>
-    <updated>2021-10-17T04:16:17.150Z</updated>
+    <updated>2021-10-17T04:18:28.240Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://billtsu.github.io"/>
     <link rel="self" href="https://billtsu.github.io/atom.xml"/>
@@ -37,7 +37,7 @@ post /creator/create<br>
 post /creator/modify<br>
 tablename: creators</p>
 <pre><code class="language-json">{
-    &quot;uid&quot;:&quot;liuh5&quot;, // uid 作为唯一标识
+    &quot;uid&quot;:&quot;wliu&quot;, // uid 作为唯一标识
     &quot;state&quot;:1 // 1 激活 0 disabled
 }
 </code></pre>
