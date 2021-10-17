@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://billtsu.github.io</id>
     <title>日常记录</title>
-    <updated>2021-01-27T01:20:29.110Z</updated>
+    <updated>2021-10-17T04:16:17.150Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://billtsu.github.io"/>
     <link rel="self" href="https://billtsu.github.io/atom.xml"/>
@@ -11,850 +11,850 @@
     <icon>https://billtsu.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 日常记录</rights>
     <entry>
-        <title type="html"><![CDATA[brew install 失败]]></title>
-        <id>https://billtsu.github.io/post/brew-install-shi-bai/</id>
-        <link href="https://billtsu.github.io/post/brew-install-shi-bai/">
+        <title type="html"><![CDATA[day01]]></title>
+        <id>https://billtsu.github.io/post/day01/</id>
+        <link href="https://billtsu.github.io/post/day01/">
         </link>
-        <updated>2021-01-26T09:16:50.000Z</updated>
-        <content type="html"><![CDATA[<p>mac 安装 tesseract</p>
-<pre><code class="language-shell">brew install tesseract
-</code></pre>
-<p>失败报错</p>
-<pre><code class="language-shell">==&gt; Downloading https://github.com/tesseract-ocr/tessdata_fast/raw/4.0.0/eng.traineddata
-######################################################################## 100.0%
-curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
-Error: Failed to download resource &quot;tesseract--eng&quot;
-Download failed: https://github.com/tesseract-ocr/tessdata_fast/raw/4.0.0/eng.traineddata
-</code></pre>
-<p>手动curl 或者 browser get OK<br>
-代理设置啥的无果</p>
-<p>参考一些文档和打印信息后发现下载的都缓存在指定目录下<br>
-～/Library/Caches/Homebrew/downloads/</p>
-<pre><code class="language-shell">==&gt; Downloading https://github.com/uclouvain/openjpeg/archive/v2.3.1.tar.gz
-Already downloaded: /Users/xx/Library/Caches/Homebrew/downloads/e80173a0e76f1052c3d696641bf0a93631ababf780c1aa99ec1d4bd21bbf0e4b--openjpeg-2.3.1.tar.gz
-</code></pre>
-<p>e80173a0e76f1052c3d696641bf0a93631ababf780c1aa99ec1d4bd21bbf0e4b--openjpeg-2.3.1.tar.gz<br>
-这个前缀是啥<br>
-https://github.com/Homebrew/brew<br>
-下载源码查看<br>
-ruby写的</p>
-<pre><code class="language-ruby"># 加密算法 library/homebrew/extend/pathname.rb
-  def sha256
-    require &quot;digest/sha2&quot;
-    Digest::SHA256.file(self).hexdigest
-  end
-</code></pre>
-<pre><code class="language-ruby"># library/homebrew/down_strategy.rb
-  def cached_location
-    return @cached_location if defined?(@cached_location)
-
-    url_sha256 = Digest::SHA256.hexdigest(url)
-    downloads = Pathname.glob(HOMEBREW_CACHE/&quot;downloads/#{url_sha256}--*&quot;)
-                        .reject { |path| path.extname.end_with?(&quot;.incomplete&quot;) }
-
-    @cached_location = if downloads.count == 1
-      downloads.first
-    else
-      HOMEBREW_CACHE/&quot;downloads/#{url_sha256}--#{resolved_basename}&quot;
-    end
-  end
-</code></pre>
-<p>https://www.cmd5.com/hash.aspx?s=123456<br>
-测试验证几个URL无误后就OK了</p>
-<pre><code class="language-shell">Already downloaded: /Users/xx/Library/Caches/Homebrew/downloads/e9d299931c7904231cdcc678f32df30f903c0a59c45047f7db1304d843ae1136--leptonica-1.80.0.tar.gz
-==&gt; Downloading https://github.com/tesseract-ocr/tessdata_fast/raw/4.0.0/eng.traineddata
-Already downloaded: /Users/xx/Library/Caches/Homebrew/downloads/43826098cb7f5ea003b3ea7e4cce9d6dc7196455e5e820328293b7a2527d6ea6--eng.traineddata
-==&gt; Downloading https://github.com/tesseract-ocr/tessdata_fast/raw/4.0.0/osd.traineddata
-######################################################################## 100.0%
-curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
-</code></pre>
-<p>大爷的，还有其他的</p>
+        <updated>2021-10-17T04:11:56.000Z</updated>
+        <content type="html"><![CDATA[<p>测试</p>
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[eggjs 1]]></title>
-        <id>https://billtsu.github.io/post/eggjs-1/</id>
-        <link href="https://billtsu.github.io/post/eggjs-1/">
+        <title type="html"><![CDATA[b-wj]]></title>
+        <id>https://billtsu.github.io/post/b-wj/</id>
+        <link href="https://billtsu.github.io/post/b-wj/">
         </link>
-        <updated>2021-01-25T07:18:03.000Z</updated>
-        <content type="html"><![CDATA[<p>https://zhuanlan.zhihu.com/p/47178799</p>
-<h2 id="应用-插件-框架">应用 插件 框架</h2>
+        <updated>2021-03-04T01:59:38.000Z</updated>
+        <content type="html"><![CDATA[<p>角色</p>
 <ol>
-<li>应用基于框架运行，可配置多个插件</li>
-<li>插件只完成独立功能</li>
-<li>启动器，启动应用；封装器，可在已有基础上进行封装，也可以配置插件 egg eggcore 都是框架</li>
-<li>框架基础上可以拓展新的</li>
-<li>以上三个组成 加载单元loadunit， service/controller/config/middleware等目录结构</li>
-</ol>
-<h2 id="egg-core-源码">egg-core 源码</h2>
-<pre><code class="language-html"># 加载单元的目录结构如下图，其中插件和框架没有 controller 和 router.js
-# 这个目录结构很重要，后面所有的 load 方法都是针对这个目录结构进行的
-        loadUnit
-        ├── package.json
-        ├── app
-        │   ├── extend
-        │   |   ├── helper.js
-        │   |   ├── request.js
-        │   |   ├── response.js
-        │   |   ├── context.js
-        │   |   ├── application.js
-        │   |   └── agent.js
-        │   ├── service
-        |   ├── controller
-        │   ├── middleware
-        │   └── router.js
-        └── config
-            ├── config.default.js
-            ├── config.prod.js
-            ├── config.test.js
-            ├── config.local.js
-            └── config.unittest.js```
-## egg-core 主要功能
-export 四个对象 
-- eggcore 继承koaapplication 初始化工作，最重要的属性 loader，也就是 eggloader的实例
-- eggloader 整个unit rcsem 的加载和初始化工作，主要提供load函数  loadplugin loadconfig loadmiddleware loadservice loadcontroller loadrouter 会根据指定目录下文件输出形式不同进行适配，最终输出内容
-- basecontextclass 提供controller和service中的基类，只有继承，才能使用this.ctx
-- utils，提供主要函数，包括转化成中间件函数middleware，根据不同类型文件获取文件导出内容函数loadfile等
-# eggcore就是根据unit结构范式，将rcsem 加载到app context上
-```javascript
-// egg-core 源码 -&gt; 导出的数据结构
-const EggCore = require('./lib/egg');
-const EggLoader = require('./lib/loader/egg_loader');
-const BaseContextClass = require('./lib/utils/base_context_class');
-const utils = require('./lib/utils');
-
-module.exports = {
-  EggCore,
-  EggLoader,
-  BaseContextClass,
-  utils,
-};
-</code></pre>
-<h2 id="eggcore-具体实现源码">eggcore 具体实现源码</h2>
-<p>eggcore类继承于koa，做初始化工作，主要三个属性<br>
-loader 是eggloder的实例，定义多个load函数，对loadunit目录下文件进行加载<br>
-router eggrouter实例，继承koarouter 路由管理和分发<br>
-lifecycle app生命周期管理</p>
-<pre><code class="language-javascript">// egg-core 源码 -&gt; EggCore 类的部分实现
-
-const KoaApplication = require('koa');
-const EGG_LOADER = Symbol.for('egg#loader');
-
-class EggCore extends KoaApplication {
-    constructor(options = {}) {
-        super();
-        const Loader = this[EGG_LOADER];
-        //初始化 loader 对象
-        this.loader = new Loader({
-            baseDir: options.baseDir,          //项目启动的根目录
-            app: this,                         // EggCore 实例本身
-            plugins: options.plugins,          //自定义插件配置信息，设置插件配置信息有多种方式，后面我们会讲
-            logger: this.console,             
-            serverScope: options.serverScope, 
-        });
-    }
-    get [EGG_LOADER]() {
-        return require('./loader/egg_loader');
-    }
-    // router 对象
-    get router() {
-        if (this[ROUTER]) {
-          return this[ROUTER];
-        }
-        const router = this[ROUTER] = new Router({ sensitive: true }, this);
-        this.beforeStart(() =&gt; {
-          this.use(router.middleware());
-        });
-        return router;
-    }
-    // 生命周期对象初始化
-    this.lifecycle = new Lifecycle({
-        baseDir: options.baseDir,
-        app: this,
-        logger: this.console,
-    });
+<li>
+<p>sys<br>
+全部权限<br>
+创建wj人员列表 curd<br>
+get /creator/list<br>
+get /creator/{id}<br>
+post /creator/create<br>
+post /creator/modify<br>
+tablename: creators</p>
+<pre><code class="language-json">{
+    &quot;uid&quot;:&quot;liuh5&quot;, // uid 作为唯一标识
+    &quot;state&quot;:1 // 1 激活 0 disabled
 }
 </code></pre>
-<h2 id="eggloader-类源码学习">eggloader 类源码学习</h2>
-<p>eggloader 先对app基本信息pkg/eggpaths/serverenv/appinfo/serverscope/basedir/进行整理，定义基础共用函数 geteggpaths/gettypefiles/getloadunits/loadfile 为后期load函数准备</p>
-<pre><code class="language-javascript">// egg-core源码 -&gt; EggLoader 中基本属性和基本函数的实现
-
-class EggLoader {
-    constructor(options) {
-        this.options = options;
-        this.app = this.options.app;
-        //pkg 是根目录的 package.json 输出对象
-        this.pkg = utility.readJSONSync(path.join(this.options.baseDir, 'package.json'));
-        // eggPaths 是所有框架目录的集合体，虽然我们上面提到一个应用只有一个框架，但是框架可以在框架的基础上实现多级继承，所以是多个 eggPath
-        //在实现框架类的时候，必须指定属性 Symbol.for('egg#eggPath') ，这样才能找到框架的目录结构
-        //下面有关于 getEggPaths 函数的实现分析
-        this.eggPaths = this.getEggPaths();
-        this.serverEnv = this.getServerEnv();
-        //获取 app 的一些基本配置信息(name,baseDir,env,scope,pkg 等)
-        this.appInfo = this.getAppInfo();
-        this.serverScope = options.serverScope !== undefined
-            ? options.serverScope
-            : this.getServerScope();
-    }
-    //递归获取继承链上所有 eggPath
-    getEggPaths() {
-        const EggCore = require('../egg');
-        const eggPaths = [];
-        let proto = this.app;
-        //循环递归的获取原型链上的框架 Symbol.for('egg#eggPath') 属性
-        while (proto) {
-            proto = Object.getPrototypeOf(proto);
-            //直到 proto 属性等于 EggCore 本身，说明到了最上层的框架类，停止循环
-            if (proto === Object.prototype || proto === EggCore.prototype) {
-                break;
-            }
-            const eggPath = proto[Symbol.for('egg#eggPath')];
-            const realpath = fs.realpathSync(eggPath);
-            if (!eggPaths.includes(realpath)) {
-                eggPaths.unshift(realpath);
-            }
-        }
-        return eggPaths;
-    }
-
-    //函数输入：config 或者 plugin ，函数输出：当前环境下的所有配置文件
-    //该函数会根据 serverScope，serverEnv 的配置信息，返回当前环境对应 filename 的所有配置文件
-    //比如我们的 serverEnv=prod，serverScope=online，那么返回的 config 配置文件是 ['config.default', 'config.online', 'config.prod', 'config.online_prod']
-    //这几个文件加载顺序非常重要，因为最终获取到的 config 信息会进行深度的覆盖，后面的文件信息会覆盖前面的文件信息
-    getTypeFiles(filename) {
-        const files = [ `${filename}.default` ];
-        if (this.serverScope) files.push(`${filename}.${this.serverScope}`);
-        if (this.serverEnv === 'default') return files;
-
-        files.push(`${filename}.${this.serverEnv}`);
-        if (this.serverScope) files.push(`${filename}.${this.serverScope}_${this.serverEnv}`);
-        return files;
-    }
-
-    //获取框架、应用、插件的 loadUnits 目录集合，上文有关于 loadUnits 的说明
-    //这个函数在下文中介绍的 loadSerivce,loadMiddleware,loadConfig,loadExtend 中都会用到，因为 plugin，framework，app 中都会有关系这些信息的配置
-    getLoadUnits() {
-        if (this.dirs) {
-            return this.dirs;
-        }
-        const dirs = this.dirs = [];
-        //插件目录，关于 orderPlugins 会在后面的loadPlugin函数中讲到
-        if (this.orderPlugins) {
-            for (const plugin of this.orderPlugins) {
-                dirs.push({
-                    path: plugin.path,
-                    type: 'plugin',
-                });
-            }
-        }
-        //框架目录
-        for (const eggPath of this.eggPaths) {
-            dirs.push({
-                path: eggPath,
-                type: 'framework',
-            });
-        }
-        //应用目录
-        dirs.push({
-            path: this.options.baseDir,
-            type: 'app',
-        });
-        return dirs;
-    }
-
-    //这个函数用于读取某个 loadUnit 下的文件具体内容，包括 js 文件，json 文件及其它普通文件
-    loadFile(filepath, ...inject) {
-        if (!filepath || !fs.existsSync(filepath)) {
-            return null;
-        }
-        if (inject.length === 0) inject = [ this.app ];
-        let ret = this.requireFile(filepath);
-        //这里要注意，如果某个 js 文件导出的是一个函数，且不是一个 Class，那么Egg认为这个函数的格式是：app =&gt; {},输入是 EggCore 实例，输出是真正需要的信息
-        if (is.function(ret) &amp;&amp; !is.class(ret)) {
-            ret = ret(...inject);
-        }
-        return ret;
-    }
-}
-</code></pre>
-<h2 id="如何将不同类型文件加载-eggcore中文件加载都在一个独立文件">如何将不同类型文件加载 eggcore中文件加载都在一个独立文件。</h2>
-<p>加载 controller 文件可以通过 './mixin/controller' 目录下的 loadController 完成，加载 service 文件可以通过 './mixin/service' 下的 loadService 函数完成，然后将这些方法挂载 EggLoader 的原型上</p>
-<pre><code class="language-javascript">// egg-core 源码 -&gt; 混入不同目录文件的加载方法到 EggLoader 的原型上
-
-const loaders = [
-  require('./mixin/plugin'),            // loadPlugin方法
-  require('./mixin/config'),            // loadConfig方法
-  require('./mixin/extend'),            // loadExtend方法
-  require('./mixin/custom'),            // loadCustomApp和loadCustomAgent方法
-  require('./mixin/service'),           // loadService方法
-  require('./mixin/middleware'),        // loadMiddleware方法
-  require('./mixin/controller'),        // loadController方法
-  require('./mixin/router'),            // loadRouter方法
-];
-
-for (const loader of loaders) {
-  Object.assign(EggLoader.prototype, loader);
-}
-</code></pre>
-<h2 id="loadplugin函数">loadplugin函数</h2>
-<p>插件不含 router和controller，应用和框架里都可以有，还可以通过环境变量和初始化参数传入<br>
-enable 是否开启插件<br>
-env 插件运行环境<br>
-path 插件所在的路径<br>
-package 和path 只能设置一个，根据package取node_modules查询plugin</p>
-<pre><code class="language-javascript">// egg-core 源码 -&gt; loadPlugin 函数部分源码
-
-loadPlugin() {
-    //加载应用目录下的 plugins
-    // readPluginConfigs 这个函数会先调用我们上文提到的 getTypeFiles 获取到 app 目录下所有的 plugin 文件名，然后按照文件顺序进行加载并合并，并规范 plugin 的数据结构
-    const appPlugins = this.readPluginConfigs(path.join(this.options.baseDir, 'config/plugin.default'));
-
-    //加载框架目录下的 plugins
-    const eggPluginConfigPaths = this.eggPaths.map(eggPath =&gt; path.join(eggPath, 'config/plugin.default'));
-    const eggPlugins = this.readPluginConfigs(eggPluginConfigPaths);
-
-    //可以通过环境变量 EGG_PLUGINS 配置 plugins，从环境变量加载 plugins
-    let customPlugins;
-    if (process.env.EGG_PLUGINS) {
-      try {
-        customPlugins = JSON.parse(process.env.EGG_PLUGINS);
-      } catch (e) {
-        debug('parse EGG_PLUGINS failed, %s', e);
-      }
-    }
-
-    //从启动参数 options 里加载 plugins
-    //启动参数的 plugins 和环境变量的 plugins 都是自定义的 plugins，可以对默认的应用和框架 plugin 进行覆盖
-    if (this.options.plugins) {
-      customPlugins = Object.assign({}, customPlugins, this.options.plugins);
-    }
-
-    this.allPlugins = {};
-    this.appPlugins = appPlugins;
-    this.customPlugins = customPlugins;
-    this.eggPlugins = eggPlugins;
-
-    //按照顺序对 plugin 进行合并及覆盖
-    // _extendPlugins 在合并的过程中，对相同 name 的 plugin 中的属性进行覆盖，有一个特殊处理的地方，如果某个属性的值是空数组，那么不会覆盖前者
-    this._extendPlugins(this.allPlugins, eggPlugins);
-    this._extendPlugins(this.allPlugins, appPlugins);
-    this._extendPlugins(this.allPlugins, customPlugins);
-
-    const enabledPluginNames = [];
-    const plugins = {};
-    const env = this.serverEnv;
-    for (const name in this.allPlugins) {
-      const plugin = this.allPlugins[name];
-      // plugin 的 path 可能是直接指定的，也有可能指定了一个 package 的 name，然后从 node_modules 中查找
-      //从 node_modules 中查找的顺序是：{APP_PATH}/node_modules -&gt; {EGG_PATH}/node_modules -&gt; $CWD/node_modules
-      plugin.path = this.getPluginPath(plugin, this.options.baseDir);
-      //这个函数会读取每个 plugin.path 路径下的 package.json，获取 plugin 的 version，并会使用 package.json 中的 dependencies，optionalDependencies, env 变量作覆盖
-      this.mergePluginConfig(plugin);
-      // 有些 plugin 只有在某些环境（serverEnv）下才能使用，否则改成 enable=false
-      if (env &amp;&amp; plugin.env.length &amp;&amp; !plugin.env.includes(env)) {
-        plugin.enable = false;
-        continue;
-      }
-      //获取 enable=true 的所有 pluginnName
-      plugins[name] = plugin;
-      if (plugin.enable) {
-        enabledPluginNames.push(name);
-      }
-    }
-
-    //这个函数会检查插件的依赖关系，插件的依赖关系在 dependencies 中定义，最后返回所有需要的插件
-    //如果 enable=true 的插件依赖的插件不在已有的插件中，或者插件的依赖关系存在循环引用，则会抛出异常
-    //如果 enable=true 的依赖插件为 enable=false，那么该被依赖的插件会被改为 enable=true
-    this.orderPlugins = this.getOrderPlugins(plugins, enabledPluginNames, appPlugins);
-
-    //最后我们以对象的方式将 enable=true 的插件挂载在 this 对象上
-    const enablePlugins = {};
-    for (const plugin of this.orderPlugins) {
-      enablePlugins[plugin.name] = plugin;
-    }
-    this.plugins = enablePlugins;
-}
-</code></pre>
-<h2 id="loadconfig-函数">loadconfig 函数</h2>
-<p>按照顺序加载所有 loadUnits 目录下的 config 文件内容，进行合并，最后将 config 信息挂载在 this 对象上</p>
-<pre><code class="language-javascript">// egg-core 源码 -&gt; loadConfig 函数分析
-
-loadConfig() {
-    this.configMeta = {};
-    const target = {};
-    //这里之所以先加载 app 相关的 config ，是因为在加载 plugin 和 framework 的 config 时会使用到 app 的 config
-    const appConfig = this._preloadAppConfig();
-
-    // config的加载顺序为：plugin config.default -&gt; framework config.default -&gt; app config.default -&gt; plugin config.{env} -&gt; framework config.{env} -&gt; app config.{env}
-    for (const filename of this.getTypeFiles('config')) {
-      // getLoadUnits 函数前面有介绍，获取 loadUnit 目录集合
-      for (const unit of this.getLoadUnits()) {
-        const isApp = unit.type === 'app';
-        //如果是加载插件和框架下面的 config，那么会将 appConfig 当作参数传入
-        //这里 appConfig 已经加载了一遍了，又重复加载了，不知道处于什么原因，下面会有 _loadConfig 函数源码分析
-        const config = this._loadConfig(unit.path, filename, isApp ? undefined : appConfig, unit.type);
-        if (!config) {
-          continue;
-        }
-        // config 进行覆盖
-        extend(true, target, config);
-      }
-    }
-    this.config = target;
-}
-
-_loadConfig(dirpath, filename, extraInject, type) {
-    const isPlugin = type === 'plugin';
-    const isApp = type === 'app';
-
-    let filepath = this.resolveModule(path.join(dirpath, 'config', filename));
-    //如果没有 config.default 文件，则用 config.js 文件替代，隐藏逻辑
-    if (filename === 'config.default' &amp;&amp; !filepath) {
-      filepath = this.resolveModule(path.join(dirpath, 'config/config'));
-    }
-    // loadFile 函数我们在 EggLoader 中讲到过，如果 config 导出的是一个函数会先执行这个函数，将函数的返回结果导出，函数的参数也就是[this.appInfo extraInject]
-    const config = this.loadFile(filepath, this.appInfo, extraInject);
-    if (!config) return null;
-
-    //框架使用哪些中间件也是在 config 里作配置的，后面关于 loadMiddleware 函数实现中有说明
-    // coreMiddleware 只能在框架里使用
-    if (isPlugin || isApp) {
-      assert(!config.coreMiddleware, 'Can not define coreMiddleware in app or plugin');
-    }
-    // middleware 只能在应用里定义
-    if (!isApp) {
-      assert(!config.middleware, 'Can not define middleware in ' + filepath);
-    }
-    //这里是为了设置 configMeta，表示每个配置项是从哪里来的
-    this[SET_CONFIG_META](config, filepath);
-    return config;
-  }
-</code></pre>
-<h2 id="loadextend-函数">loadextend 函数</h2>
-<p>针对koa app.response app.respond app.context 以及app本身，同样根据loadunits下配置顺序进行加载，</p>
-<pre><code class="language-javascript">// egg-core -&gt; loadExtend 函数实现
-
-// name输入是 &quot;response&quot;/&quot;respond&quot;/&quot;context&quot;/&quot;app&quot; 中的一个，proto 是被扩展的对象
-loadExtend(name, proto) {
-    //获取指定 name 所有 loadUnits 下的配置文件路径
-    const filepaths = this.getExtendFilePaths(name);
-    const isAddUnittest = 'EGG_MOCK_SERVER_ENV' in process.env &amp;&amp; this.serverEnv !== 'unittest';
-    for (let i = 0, l = filepaths.length; i &lt; l; i++) {
-      const filepath = filepaths[i];
-      filepaths.push(filepath + `.${this.serverEnv}`);
-      if (isAddUnittest) filepaths.push(filepath + '.unittest');
-    }
-
-    //这里并没有对属性的直接覆盖，而是对原先的 PropertyDescriptor 的 get 和 set 进行合并
-    const mergeRecord = new Map();
-    for (let filepath of filepaths) {
-      filepath = this.resolveModule(filepath);
-      const ext = this.requireFile(filepath);
-
-      const properties = Object.getOwnPropertyNames(ext)
-        .concat(Object.getOwnPropertySymbols(ext));
-      for (const property of properties) {
-        let descriptor = Object.getOwnPropertyDescriptor(ext, property);
-        let originalDescriptor = Object.getOwnPropertyDescriptor(proto, property);
-        if (!originalDescriptor) {
-          const originalProto = originalPrototypes[name];
-          if (originalProto) {
-            originalDescriptor = Object.getOwnPropertyDescriptor(originalProto, property);
-          }
-        }
-        //如果原始对象上已经存在相关属性的 Descriptor，那么对其 set 和 get 方法进行合并
-        if (originalDescriptor) {
-          descriptor = Object.assign({}, descriptor);
-          if (!descriptor.set &amp;&amp; originalDescriptor.set) {
-            descriptor.set = originalDescriptor.set;
-          }
-          if (!descriptor.get &amp;&amp; originalDescriptor.get) {
-            descriptor.get = originalDescriptor.get;
-          }
-        }
-        //否则直接覆盖
-        Object.defineProperty(proto, property, descriptor);
-        mergeRecord.set(property, filepath);
-      }
-    }
-  }
-</code></pre>
-<h2 id="loadservice-函数">loadservice 函数</h2>
-<p>最复杂的一个函数，先看如何使用service</p>
-<pre><code class="language-javascript">// egg-core 源码 -&gt; 如何在 egg 框架中使用 service
-
-//方式 1 ：app/service/user1.js
-//这个是最标准的做法，导出一个 class ，这个 class 继承了 require('egg').Service ，其实也就是我们上文提到的 eggCore 导出的 BaseContextClass
-//最终我们在业务逻辑中获取到的是这个class的一个实例，在 load 的时候是将 app.context 当作新建实例的参数
-//在 controller 中调用方式：this.ctx.service.user1.find(1)
-const Service = require('egg').Service;
-class UserService extends Service {
-  async find(uid) {
-    //此时我们可以通过 this.ctx,this.app,this.config,this.service 获取到有用的信息，尤其是 this.ctx 非常重要，每个请求对应一个 ctx，我们可以查询到当前请求的所有信息
-    const user = await this.ctx.db.query('select * from user where uid = ?', uid);
-    return user;
-  }
-}
-module.exports = UserService;
-
-//方式 2 ：app/service/user2.js
-//这个做法是我模拟了一个 BaseContextClass，当然也就可以实现方法 1 的目的，但是不推荐
-class UserService {
-  constructor(ctx) {
-    this.ctx = ctx;
-    this.app = ctx.app;
-    this.config = ctx.app.config;
-    this.service = ctx.service;
-  }
-  async find(uid) {
-    const user = await this.ctx.db.query('select * from user where uid = ?', uid);
-    return user;
-  }
-}
-module.exports = UserService;
-
-//方式 3 ：app/service/user3.js
-// service 中也可以 export 函数，在 load 的时候会主动调用这个函数，把 appInfo 参数传入，最终获取到的是函数返回结果
-//在 controller 中调用方式：this.ctx.service.user3.getAppName(1) ，这个时候在 service 中获取不到当前请求的上下文 ctx
-module.exports = (appInfo) =&gt; {
-    return {
-        async getAppName(uid){
-            return appInfo.name;
-        }
-    }
-};
-
-//方式 4 ：app/service/user4.js
-// service 也可以直接 export 普通的原生对象，load 的时候会将该普通对象返回，同样获取不到当前请求的上下文 ctx
-//在 controller 中调用方式：this.ctx.service.user4.getAppName(1)
-module.exports = {
-    async getAppName(uid){
-        return appInfo.name;
-    }
-};
-</code></pre>
-<p>以上</p>
+</li>
+<li>
+<p>creator<br>
+curd wj<br>
+汇总结果列表<br>
+导出<br>
+wj 开启关闭 过期与否<br>
+需求</p>
 <ol>
-<li>why this.ctx.service<br>
-app.context=&gt;this.ctx 只要service绑定到app.context上，请求上下文ctx即可拿到</li>
-<li>导出实例？<br>
-如果导出的是一个类，EggLoader 会主动以 ctx 对象去初始化这个实例并导出，所以我们就可以直接在该类中使用 this.ctx 获取当前请求的上下文了<br>
-如果导出的是一个函数，那么 EggLoader 会以 app 作为参数运行这个函数并将结果导出<br>
-如果是一个普通的对象，直接导出</li>
-</ol>
-<h2 id="fileloader类的分析">fileloader类的分析</h2>
-<p>loadservice 函数时，有基础类fileloader，同时也是loadmiddleware loadcontroller的基础，提供个load函数，根据目录结构和文件内容进行解析，返回target对象，根据文件名和子文件名以及函数名称获取service导出的数据，target 结构<br>
-{<br>
-&quot;file1&quot;: {<br>
-&quot;file11&quot;: {<br>
-&quot;function1&quot;: a =&gt; a<br>
-}<br>
-},<br>
-&quot;file2&quot;: {<br>
-&quot;function2&quot;: a =&gt; a<br>
-}<br>
-}</p>
-<pre><code class="language-javascript">{
-    &quot;file1&quot;: {
-        &quot;file11&quot;: {
-            &quot;function1&quot;: a =&gt; a
-        }
-    },
-    &quot;file2&quot;: {
-        &quot;function2&quot;: a =&gt; a
-    }
-}
-下面我们先看一下 FileLoader 这个类的实现：
-
-// egg-core 源码 -&gt; FileLoader 实现
-
-class FileLoader {
-  constructor(options) {
-    /* options 里几个重要参数的含义:
-    1. directory: 需要加载文件的所有目录
-    2. target: 最终加载成功后的目标对象
-    3. initializer：一个初始化函数，对文件导出内容进行初始化，这个在 loadController 实现时会用到
-    4. inject：如果某个文件的导出对象是一个函数，那么将该值传入函数并执行导出，一般都是 this.app
-    */
-    this.options = Object.assign({}, defaults, options);
-  }
-  load() {
-    //解析 directory 下的文件，下面有 parse 函数的部分实现
-    const items = this.parse();
-    const target = this.options.target;
-    // item1 = { properties: [ 'a', 'b', 'c'], exports1 },item2 = { properties: [ 'a', 'b', 'd'], exports2 }
-    // =&gt; target = {a: {b: {c: exports1, d: exports2}}}
-    //根据文件路径名称递归生成一个大的对象 target ，我们通过 target.file1.file2 就可以获取到对应的导出内容
-    for (const item of items) {
-      item.properties.reduce((target, property, index) =&gt; {
-        let obj;
-        const properties = item.properties.slice(0, index + 1).join('.');
-        if (index === item.properties.length - 1) {
-          obj = item.exports;
-          if (obj &amp;&amp; !is.primitive(obj)) {
-            //这步骤很重要，确定这个 target 是不是一个 exports ，有可能只是一个路径而已
-            obj[FULLPATH] = item.fullpath;
-            obj[EXPORTS] = true;
-          }
-        } else {
-          obj = target[property] || {};
-        }
-        target[property] = obj;
-        return obj;
-      }, target);
-    }
-    return target;
-  }
-
-  //最终生成 [{ properties: [ 'a', 'b', 'c'], exports，fullpath}] 形式， properties 文件路径名称的数组， exports 是导出对象， fullpath 是文件的绝对路径
-  parse() {
-    //文件目录转换为数组
-    let directories = this.options.directory;
-    if (!Array.isArray(directories)) {
-      directories = [ directories ];
-    }
-    //遍历所有文件路径
-    const items = [];
-    for (const directory of directories) {
-      //每个文件目录下面可能还会有子文件夹，所以 globby.sync 函数是获取所有文件包括子文件下的文件的路径
-      const filepaths = globby.sync(files, { cwd: directory });
-      for (const filepath of filepaths) {
-        const fullpath = path.join(directory, filepath);
-        if (!fs.statSync(fullpath).isFile()) continue;
-        //获取文件路径上的以 &quot;/&quot; 分割的所有文件名，foo/bar.js =&gt; [ 'foo', 'bar' ]，这个函数会对 propertie 同一格式，默认为驼峰
-        const properties = getProperties(filepath, this.options);
-        // app/service/foo/bar.js =&gt; service.foo.bar
-        const pathName = directory.split(/[/\\]/).slice(-1) + '.' + properties.join('.');
-        // getExports 函数获取文件内容，并将结果做一些处理，看下面实现
-        const exports = getExports(fullpath, this.options, pathName);
-        //如果导出的是 class ，会设置一些属性，这个属性下文中对于 class 的特殊处理地方会用到
-        if (is.class(exports)) {
-          exports.prototype.pathName = pathName;
-          exports.prototype.fullPath = fullpath;
-        }
-        items.push({ fullpath, properties, exports });
-      }
-    }
-    return items;
-  }
-}
-
-//根据指定路径获取导出对象并作预处理
-function getExports(fullpath, { initializer, call, inject }, pathName) {
-  let exports = utils.loadFile(fullpath);
-  //用 initializer 函数对exports结果做预处理
-  if (initializer) {
-    exports = initializer(exports, { path: fullpath, pathName });
-  }
-  //如果 exports 是 class，generatorFunction，asyncFunction 则直接返回    
-  if (is.class(exports) || is.generatorFunction(exports) || is.asyncFunction(exports)) {
-    return exports;
-  }
-  //如果导出的是一个普通函数，并且设置了 call=true，默认是 true，会将 inject 传入并调用该函数，上文中提到过好几次，就是在这里实现的
-  if (call &amp;&amp; is.function(exports)) {
-    exports = exports(inject);
-    if (exports != null) {
-      return exports;
-    }
-  }
-  //其它情况直接返回
-  return exports;
-}
-</code></pre>
-<h2 id="contextloader-类的实现">contextloader 类的实现</h2>
-<p>contextloader继承fileloader，将解析出的target挂载在 app.context</p>
-<pre><code class="language-javascript">// egg-core -&gt; ContextLoader 类的源码实现
-
-class ContextLoader extends FileLoader {
-    constructor(options) {
-        const target = options.target = {};
-        super(options);
-        // FileLoader 已经讲过 inject 就是 app
-        const app = this.options.inject;
-        // property 就是要挂载的属性，比如 &quot;service&quot;
-        const property = options.property;
-        //将 service 属性挂载在 app.context 上
-        Object.defineProperty(app.context, property, {
-            get() {
-                //做缓存，由于不同的请求 ctx 不一样，这里是针对同一个请求的内容进行缓存
-                if (!this[CLASSLOADER]) {
-                    this[CLASSLOADER] = new Map();
-                }
-                const classLoader = this[CLASSLOADER];
-                //获取导出实例，这里就是上文用例中获取 this.ctx.service.file1.fun1 的实现，这里的实例就是 this.ctx.service，实现逻辑请看下面的 getInstance 的实现
-                let instance = classLoader.get(property);
-                if (!instance) {
-                    //这里传入的 this 就是为了初始化 require('egg').Service 实例时当作参数传入
-                    // this 会根据调用者的不同而改变，比如是 app.context 的实例调用那么就是 app.context ，如果是 app.context 子类的实例调用，那么就是其子类的实例
-                    //就是因为这个 this ，如果 service 里继承require('egg').Service ，才可以通过 this.ctx 获取到当前请求的上下文
-                    instance = getInstance(target, this);
-                    classLoader.set(property, instance);
-                }
-                return instance;
-            },
-        });
-    }
-}
-
-// values 是 FileLoader/load 函数生成 target 对象
-function getInstance(values, ctx) {
-  //上文 FileLoader 里实现中我们讲过，target 对象是一个由路径和 exports 组装成的一个大对象，这里 Class 是为了确定其是不是一个 exports ，有可能是一个路径名
-  const Class = values[EXPORTS] ? values : null;
-  let instance;
-  if (Class) {
-    if (is.class(Class)) {
-        //这一步很重要，如果是类，就用 ctx 进行初始化获取实例
-        instance = new Class(ctx);
-    } else {
-        //普通对象直接导出，这里要注意的是如果是 exports 函数，在 FileLoader 实现中已经将其执行并转换为了对象
-        // function 和 class 分别在子类和父类的处理的原因是， function 的处理逻辑 loadMiddleware,loadService,loadController 公用，而 class 的处理逻辑 loadService 使用
-        instance = Class;
-    }
-  } else if (is.primitive(values)) {
-       //原生类型直接导出
-       instance = values;
-  } else {
-       //如果目前的 target 部分是一个路径，那么会新建一个 ClassLoader 实例，这个 ClassLoader 中又会递归的调用 getInstance
-       //这里之所以新建一个类，一是为了做缓存，二是为了在每个节点获取到的都是一个类的实例
-       instance = new ClassLoader({ ctx, properties: values });
-  }
-  return instance;
-}
-</code></pre>
-<h2 id="loadservice-实现">loadservice 实现</h2>
-<pre><code class="language-javascript">// egg-core -&gt; loadService 函数实现源码
-// loadService 函数调用 loadToContext 函数
-loadService(opt) {
-    opt = Object.assign({
-      call: true,
-      caseStyle: 'lower',
-      fieldClass: 'serviceClasses',
-      directory: this.getLoadUnits().map(unit =&gt; path.join(unit.path, 'app/service')), //所有加载单元目录下的 service
-    }, opt);
-    const servicePaths = opt.directory;
-    this.loadToContext(servicePaths, 'service', opt);
-}
-// loadToContext 函数直接新建 ContextLoader 实例，调用 load 函数实现加载
-loadToContext(directory, property, opt) {
-    opt = Object.assign({}, {
-      directory,
-      property,
-      inject: this.app,
-    }, opt);
-    new ContextLoader(opt).load();
-}
-</code></pre>
-<h2 id="loadmiddleware">loadmiddleware</h2>
-<p>中间件是 Koa 框架中很重要的一个环节，通过 app.use 引入中间件，使用洋葱圈模型，所以中间件加载的顺序很重要。 - 如果在上文中的 config 中配置的中间件，系统会自动用 app.use 函数使用该中间件 - 所有的中间件我们都可以在 app.middleware 中通过中间件 name 获取到，便于在业务中动态使用</p>
-<pre><code class="language-javascript">// egg-core 源码 -&gt; loadMiddleware 函数实现源码
-
-loadMiddleware(opt) {
-    const app = this.app;
-    opt = Object.assign({
-      call: false,   // call=false 表示如果中间件导出是函数，不会主动调用函数做转换
-      override: true,
-      caseStyle: 'lower',
-      directory: this.getLoadUnits().map(unit =&gt; join(unit.path, 'app/middleware')) //所有加载单元目录下的 middleware
-    }, opt);
-    const middlewarePaths = opt.directory;
-    //将所有中间件 middlewares 挂载在 app 上，这个函数在 loadController 实现中也用到了，看下文的实现
-    this.loadToApp(middlewarePaths, 'middlewares', opt);
-    //将 app.middlewares 中的每个中间件重新绑定在 app.middleware 上，每个中间件的属性不可配置，不可枚举
-    for (const name in app.middlewares) {
-      Object.defineProperty(app.middleware, name, {
-        get() {
-          return app.middlewares[name];
-        },
-        enumerable: false,
-        configurable: false,
-      });
-    }
-    //只有在 config 中配置了 appMiddleware 和 coreMiddleware 才会直接在 app.use 中使用，其它中间件只是挂载在 app 上，开发人员可以动态使用
-    const middlewareNames = this.config.coreMiddleware.concat(this.config.appMiddleware);
-    const middlewaresMap = new Map();
-    for (const name of middlewareNames) {
-      //如果 config 中定义 middleware 在 app.middlewares 中找不到或者重复定义，都会报错
-      if (!app.middlewares[name]) {
-        throw new TypeError(`Middleware ${name} not found`);
-      }
-      if (middlewaresMap.has(name)) {
-        throw new TypeError(`Middleware ${name} redefined`);
-      }
-      middlewaresMap.set(name, true);
-      const options = this.config[name] || {};
-      let mw = app.middlewares[name];
-      //中间件的文件定义必须 exports 一个普通 function ，并且接受两个参数：
-      // options: 中间件的配置项，框架会将 app.config[${middlewareName}] 传递进来, app: 当前应用 Application 的实例
-      //执行 exports 的函数，生成最终要的中间件
-      mw = mw(options, app);
-      mw._name = name;
-      //包装中间件，最终转换成 async function(ctx, next) 形式
-      mw = wrapMiddleware(mw, options);
-      if (mw) {
-        app.use(mw);
-        this.options.logger.info('[egg:loader] Use middleware: %s', name);
-      } else {
-        this.options.logger.info('[egg:loader] Disable middleware: %s', name);
-      }
-    }
-}
-
-//通过 FileLoader 实例加载指定属性的所有文件并导出，然后将该属性挂载在 app 上
-loadToApp(directory, property, opt) {
-    const target = this.app[property] = {};
-    opt = Object.assign({}, {
-      directory,
-      target,
-      inject: this.app,
-    }, opt);
-    new FileLoader(opt).load();
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[gridea]]></title>
-        <id>https://billtsu.github.io/post/gridea/</id>
-        <link href="https://billtsu.github.io/post/gridea/">
-        </link>
-        <updated>2021-01-21T10:36:09.000Z</updated>
-        <content type="html"><![CDATA[<ol>
-<li>makedown</li>
-<li>ceshi shuj</li>
+<li>创建 修改 页面 内容 有效期 wj对象 开启关闭按钮 设置有效期</li>
+<li>结果展示列表页面  下载 进度</li>
+<li>结果展示详情页面</li>
 <li></li>
 </ol>
+</li>
+<li>
+<p>writer<br>
+1.有效期内的答题<br>
+2.结果列表展示 单页展示<br>
+基本接口都有了<br>
+页面设计</p>
+</li>
+</ol>
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://billtsu.github.io/post/hello-gridea/</id>
-        <link href="https://billtsu.github.io/post/hello-gridea/">
+        <title type="html"><![CDATA[React Hooks 与 Immutable 数据流实战 Review]]></title>
+        <id>https://billtsu.github.io/post/react-hooks-yu-immutable-shu-ju-liu-shi-zhan-review/</id>
+        <link href="https://billtsu.github.io/post/react-hooks-yu-immutable-shu-ju-liu-shi-zhan-review/">
         </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
+        <updated>2021-02-22T06:59:38.000Z</updated>
+        <content type="html"><![CDATA[<p>reconciliation</p>
+<p>减少渲染</p>
+<p>shouldComponentUpdate</p>
+<p>会在 props or state 发生变化时返回 true，表示组件重新渲染，从而调用render，控制VDOM的diff过程</p>
+<p>节点类型相同 返回false 不需要对子节点进行比较，否则遍历</p>
+<p>节点不同，直接删除，后替换</p>
+<p>一般 scu 会比较props和state中是否发生变化 浅比较，判断是否为true，触发reconciliation, ex purecomponent api</p>
+<p>React dom diff</p>
+<ol>
+<li>只比较同层节点，不会跨层比较节点</li>
+<li>不同两个节点产生不同的树，类型不同，原来节点后的全部替换</li>
+<li>通过key指定哪些元素相同</li>
+</ol>
+<p>执行流程</p>
+<ol>
+<li>
+<p>元素不同类型 略</p>
+</li>
+<li>
+<p>相同类型</p>
+<p>2.1 都是dom节点，对比节点className 等属性，处理完后，对子节点递归</p>
+<p>2.2 组件元素 实例不变，更新props。调用组件实例的componentWillReceiveProps方法，通过，scu 返回值判断是否要调用render</p>
+<p>处理完成后对子节点进行递归</p>
+<p>2.3 特殊情况 遍历子元素列表</p>
+<p>引入key 值，通过key判断是否存在，如果只是位置调换，只用调节位置，不用更新整个节点</p>
+<p>key选取 必须列表唯一</p>
+</li>
+</ol>
+<p>其实memo就是一个语法糖，内部实现也是基于PureComponent的，创建了个新的类组件继承下PureComponent</p>
+<p>列表渲染，key 属性的值 的最佳实践是什么？</p>
+<p>前后端协作，后端指定唯一标识，前端设置这个标识为key</p>
+<p>除了常见的渲染列表，我们需要增加key属性；还有什么其他场景，我们需要主动增加key这个属性呢？</p>
+<p>假如有一个带开场动画的弹窗，弹窗在这个页面的生命周期需要多次展现消失，如果没有key，第二次弹窗展现的时候，不会有动画效果</p>
+<p>不是很明白为什么比较两个树时间复杂度要O(n^3),能写一下具体的比较代码吗..</p>
+<p>求两棵树的编辑距离。代码不写了，给你一些链接参考吧。 什么是编辑距离？ <a href="https://leetcode-cn.com/problems/edit-distance/">![https://leetcode-cn.com/problems/edit-distance/](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDI3RkZGIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS13aWR0aD0iLjgxOCI+CiAgICAgICAgPHBhdGggZD0iTTguMDMgNS4yNzZsMS41ODUtMS41ODRjMS4wOTMtMS4wOTMgMi45My0xLjAzIDQuMS4xNDEgMS4xNzIgMS4xNzIgMS4yMzYgMy4wMDguMTQyIDQuMTAyTDEyLjY3IDkuMTIzbC0uNzkyLjc5MmMtMS4wOTMgMS4wOTMtMi45MyAxLjAzLTQuMS0uMTQyIi8+CiAgICAgICAgPHBhdGggZD0iTTkuMjE5IDEyLjU3M2wtMS41ODQgMS41ODRjLTEuMDk0IDEuMDk0LTIuOTMgMS4wMy00LjEwMi0uMTQxLTEuMTcxLTEuMTcyLTEuMjM0LTMuMDA4LS4xNDEtNC4xMDFMNC41OCA4LjcyN2wuNzkyLS43OTJjMS4wOTMtMS4wOTQgMi45My0xLjAzIDQuMTAxLjE0MSIvPgogICAgPC9nPgo8L3N2Zz4K)leetcode-cn.com</a> diff 如何从O(n^3)到 O(n)？ <a href="https://www.zhihu.com/question/66851503">![https://www.zhihu.com/question/66851503](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDI3RkZGIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS13aWR0aD0iLjgxOCI+CiAgICAgICAgPHBhdGggZD0iTTguMDMgNS4yNzZsMS41ODUtMS41ODRjMS4wOTMtMS4wOTMgMi45My0xLjAzIDQuMS4xNDEgMS4xNzIgMS4xNzIgMS4yMzYgMy4wMDguMTQyIDQuMTAyTDEyLjY3IDkuMTIzbC0uNzkyLjc5MmMtMS4wOTMgMS4wOTMtMi45MyAxLjAzLTQuMS0uMTQyIi8+CiAgICAgICAgPHBhdGggZD0iTTkuMjE5IDEyLjU3M2wtMS41ODQgMS41ODRjLTEuMDk0IDEuMDk0LTIuOTMgMS4wMy00LjEwMi0uMTQxLTEuMTcxLTEuMTcyLTEuMjM0LTMuMDA4LS4xNDEtNC4xMDFMNC41OCA4LjcyN2wuNzkyLS43OTJjMS4wOTMtMS4wOTQgMi45My0xLjAzIDQuMTAxLjE0MSIvPgogICAgPC9nPgo8L3N2Zz4K)www.zhihu.com</a></p>
+<p>优化方案</p>
+<h3 id="一-purecomponent-memo-进行浅比较">一、purecomponent memo 进行浅比较</h3>
+<pre><code class="language-javascript">// shallowequal
+// is(a,b) // 第一关：基础数据类型直接比较出结果
+// typeof a,b must object // 2 必须是obj
+// hasOwnProperty.call(b,keysa[i]) // 3 属性的长度进行比较 4 type比较 // 浅比较
+// 调用 state.a.push(&quot;2&quot;) 一旦属性的值为引用类型的时候浅比较就失灵了。
+state: {a: [&quot;1&quot;]} -&gt; state: {a: [&quot;1&quot;, &quot;2&quot;]}
+// 由于js 引用赋值，浅比较无法使用复杂结构组件
+</code></pre>
+<h3 id="二-scu-deep-comp">二、scu deep comp</h3>
+<pre><code class="language-javascript"> else { // 最后一次比较后添加对值的递归比较
+        if (!deepEqual (objA [keysA [i]], objB [keysA [i]])){
+            return false;
+        }
+    }
+// 样就达到了深层比对的效果。但是想想一种极端的情况，就是在属性有一万条的时候，只有最后一个属性发生了变化，那我们就不得已将一万条属性都遍历。这是非常浪费性能的。
+</code></pre>
+<h3 id="三-immutable数据结构-scu-memo浅层对比">三、immutable数据结构 scu memo浅层对比</h3>
+<p>回到问题的本质，无论是直接用浅层比对，还是进行深层比对，我们最终是想z知道组件的 props (或 state) 数据有无发生改变。</p>
+<p>immutable 数据一种利用结构共享形成的持久化数据结构，一旦有部分被修改，那么将会返回一个全新的对象，并且原来相同的节点会直接共享</p>
+<p>是吧！只更新了父节点，比直接比对所有的属性简直强太多，并且更新后返回了一个全新的引用，即使是浅比对也能感知到数据的改变。</p>
+<p>immutable 也有一些被部分开发者吐槽的点，首先是 immutable 对象和 JS 对象要注意转换，不能混用，这个大家注意适当的时候调用 toJS 或者 fromJS 即可，问题并不大。</p>
+<p>基本设计immutable api</p>
+<p>fromJS</p>
+<p>toJS</p>
+<p>get/getin</p>
+<p>set</p>
+<p>merge</p>
+<p>三元老师，下面是我的一些理解,优化方案二对 pureComponent 浅比较进行优化，以避免 <code>state.a.push(&quot;a&quot;)</code> 这样的操作造成错误。方案二的设计目的为了达到深层次的比较，以判断引用相同时对象的差异。但实际上，如果引用未发生变化，我们访问到的是同一个对象值，无法跟踪变更。相同引用的属性指向的对象始终是同一个对象，换句话说，我们的深层次比较中第四关的递归不过是判断同一个对象的属性值的差异，显然，它们将永远相等。方案二无法解决 pureComponent 渐层比较的问题，我们要想知道数据有无发生改变，必须保证数据的不可变性，从而引入 immutable，我们的方案三。</p>
+<p>不是你这样理解的，浅拷贝对比的是对象的引用，所以浅比较无效；而递归调用比较函数实现的是在对象本身而非引用上进行比较，也就是对比对象的属性和值，这就是深层比较。用方案三只是为了时间考量</p>
+<p>immutable这个库是不是有点太重了，如果只是做浅比较防止过度刷新的化，immer更合适些。</p>
+<p>是，在ts分支中我已经用immer重构了</p>
+<p>总结起来就是想在对react组件进行性能优化时，需要监测state或props的变化来判断是否render，而怎么监测变化=&gt;用浅比较，但浅比较存在更新对象属性时引用没变的问题，所以只要能解决这个问题，浅比较依然是好方案，因此immutable的出现解决的就是有变化就返回新引用，故而浅比较+immutable就是性能优化的利器，然后后面出现的Immer是比immutable更好的方案</p>
+<p>大数据量的情况下，序列化一次带来的性能消耗可能比重新diff还大</p>
+<p>immutable.js确实有这个问题。用immer更好</p>
+<p>请问大佬，直接用JSON.stringify比较的缺点是什么</p>
+<p>每次都是不一样的引用，无论如何都刷新</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[React Hooks 与 Immutable 数据流实战 note07]]></title>
+        <id>https://billtsu.github.io/post/react-hooks-yu-immutable-shu-ju-liu-shi-zhan-note07/</id>
+        <link href="https://billtsu.github.io/post/react-hooks-yu-immutable-shu-ju-liu-shi-zhan-note07/">
+        </link>
+        <updated>2021-02-07T01:29:19.000Z</updated>
+        <content type="html"><![CDATA[<p>对应chapter3<br>
+项目最大亮点之一，使用 better-scroll 打造移动端 滑动基础组件，可以移植到其他项目</p>
+<h3 id="分布拆解scroll组件">分布拆解scroll组件</h3>
+<pre><code class="language-shell">npm install better-scroll@next --save
+</code></pre>
+<p>函数式组件的形式进行开发，不过作为一个通用组件，scroll 组件在业务中会被经常取到原生 DOM 对象，而函数式组件天生不具备被上层组件直接调用 ref 的条件，因此需要用 React 当中一些特殊的方式来处理，即使用 forwardRef 进行包裹。</p>
+<pre><code class="language-javascript">const Scroll = forwardRef((props,ref)=&gt;{
+    // 编写组件
+})
+</code></pre>
+<p>参数整理</p>
+<pre><code class="language-javascript">Scroll.propTypes = {
+    direction: PropTypes.oneOf(['vertical','horizental']), // 滑动方向
+    click: true, // 是否支持点击
+    refresh: PropTypes.bool, // 是否刷新 ？
+    onScroll: PropTypes.func, // 滑动触发的回调函数
+    pullUp: PropTypes.func, // 上拉逻辑
+    pullDown: PropTypes.func, // 下拉逻辑
+    pullUpLoading: PropTypes.bool, // 是否显示上拉 loading 动画
+    pullDownLoading: PropTypes.bool, // 是否显示 下拉 loading 动画
+    bounceTop: PropType.bool, // 是否支持 吸附顶部
+    bounceBottom: PropType.bool //是否支持 吸附底部
+};
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[React Hooks 与 Immutable 数据流实战 note06]]></title>
+        <id>https://billtsu.github.io/post/react-hooks-yu-immutable-shu-ju-liu-shi-zhan-note06/</id>
+        <link href="https://billtsu.github.io/post/react-hooks-yu-immutable-shu-ju-liu-shi-zhan-note06/">
+        </link>
+        <updated>2021-02-07T00:47:08.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="一-录播组件开发">一、录播组件开发</h3>
+<p>application/Recommend/index.js</p>
+<pre><code class="language-javascript">npm install swiper --save
+</code></pre>
+<p>注意编写 /component/slider/index.js</p>
+<pre><code class="language-javascript">// 新版 6.x 引入方式变化：
+import 'swiper/swiper-bundle.css';
+import Swiper, { Pagination, Autoplay } from 'swiper';
+
+Swiper.use([Pagination, Autoplay]);
+</code></pre>
+<h3 id="二-推荐列表开发">二、推荐列表开发</h3>
+<p>值得关注的是：</p>
+<pre><code class="language-javascript">&lt;div className=&quot;decorate&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p>上面 style.js 中对应样式:</p>
+<pre><code class="language-css">.decorate {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 35px;
+  border-radius: 3px;
+  background: linear-gradient(hsla(0,0%,43%,.4),hsla(0,0%,100%,0));
+}
+</code></pre>
+<p>这个标签的样式，它的作用就是给图片上的图标和文字提供一个遮罩，因为在字体颜色是白色，在面对白色图片背景的时候，文字会看不清或者看不到，因此提供一个阴影来衬托出文字，这个细节很容易被忽略，希望大家也能注意一下。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[React Hooks 与 Immutable 数据流实战 note05]]></title>
+        <id>https://billtsu.github.io/post/react-hooks-yu-immutable-shu-ju-liu-shi-zhan-note05/</id>
+        <link href="https://billtsu.github.io/post/react-hooks-yu-immutable-shu-ju-liu-shi-zhan-note05/">
+        </link>
+        <updated>2021-02-06T07:20:58.000Z</updated>
+        <content type="html"><![CDATA[<p>搭建项目基本骨架【磨刀不误砍柴工】<br>
+对应分支 chapter2<br>
+![原始仓]https://github.com/sanyuan0704/react-cloud-music/tree/chapter2</p>
+<p>基本搭建三步走</p>
+<ol>
+<li>路由配置和应用部分</li>
+<li>公共组件开发</li>
+<li>redux的store创建和引入</li>
+</ol>
+<h2 id="一-路由创建">一、路由创建</h2>
+<h3 id="路由文件编写">路由文件编写</h3>
+<p>应用结构从路由文件入手，整理思路<br>
+应用骨架 顶部固定内容及tab，下面对应不同功能组件</p>
+<ol>
+<li>安装依赖</li>
+</ol>
+<pre><code class="language-shell">npm install react-router react-router-dom react-router-config --save
+</code></pre>
+<ol start="2">
+<li>编写路由</li>
+</ol>
+<pre><code class="language-javascript">//routes/index.js
+import React from 'react';
+import { Redirect } from &quot;react-router-dom&quot;;
+import Home from '../application/Home';
+import Recommend from '../application/Recommend';
+import Singers from '../application/Singers';
+import Rank from '../application/Rank';
+
+export default [
+  {
+    path: &quot;/&quot;,
+    component: Home,
+    routes: [
+      {
+        path: &quot;/&quot;,
+        exact: true,
+        render: () =&gt; (
+          &lt;Redirect to={&quot;/recommend&quot;}/&gt;
+        )
+      },
+      {
+        path: &quot;/recommend&quot;,
+        component: Recommend
+      },
+      {
+        path: &quot;/singers&quot;,
+        component: Singers
+      },
+      {
+        path: &quot;/rank&quot;,
+        component: Rank
+      }
+    ]
+  }
+]
+</code></pre>
+<p>路由生效，在App根组件中导入路由配置</p>
+<pre><code class="language-javascript">import React from 'react';
+import { GlobalStyle } from  './style';
+import { renderRoutes } from 'react-router-config';//renderRoutes 读取路由配置转化为 Route 标签
+import { IconStyle } from './assets/iconfont/iconfont';
+import routes from './routes/index.js';
+import { HashRouter } from 'react-router-dom';
+
+function App () {
+  return (
+    &lt;HashRouter&gt;
+      &lt;GlobalStyle&gt;&lt;/GlobalStyle&gt;
+      &lt;IconStyle&gt;&lt;/IconStyle&gt;
+      { renderRoutes (routes) }
+    &lt;/HashRouter&gt;
+  )
+}
+
+export default App;
+</code></pre>
+<h3 id="新建组件文件">新建组件文件</h3>
+<pre><code class="language-javascript">//src/appliction/Home/index.js
+import React from 'react';
+
+function Home (props) {
+  return (
+    &lt;div&gt;Home&lt;/div&gt;
+  )
+}
+
+export default React.memo (Home);
+</code></pre>
+<p>然后类似的，创建 Recommend、Singers 和 Rank 组件。</p>
+<p>启动项目，打开页面，你可以看到 &quot;home&quot; 已经显示到屏幕，但是这还不够，我们需要展示下面的功能组件，但是你在地址后面加上 /recommend，却并没有显示 Recommend 组件相应的内容，因为 renderRoutes 这个方法只渲染一层路由，之前 Home 处于数组第一层，后面的功能组件在第二层，当然不能正常渲染啦。其实要解决这个问题也非常简单，只需在 Home 中再次调用 renderRoutes 即可。</p>
+<p>//src/appliction/Home/index.js<br>
+import React from 'react';<br>
+import { renderRoutes } from &quot;react-router-config&quot;;</p>
+<p>function Home (props) {<br>
+const { route } = props;</p>
+<p>return (<br>
+<div><br>
+<div>Home</div><br>
+{ renderRoutes (route.routes) }<br>
+</div><br>
+)<br>
+}</p>
+<p>export default React.memo (Home);<br>
+好，现在你可以访问 /recommend 路由，应该可以看到 Recommend 中的内容。同理，现在也可以正常访问其它的路由啦。</p>
+<h2 id="二-公共组件开发">二、公共组件开发</h2>
+<h3 id="全局样式开发">全局样式开发</h3>
+<p>assets/global-style.js<br>
+// 扩大可点击区域<br>
+const extendClick = () =&gt; {<br>
+return <code>position: relative; &amp;:before { content: ''; position: absolute; top: -10px; bottom: -10px; left: -10px; right: -10px; };</code><br>
+}<br>
+// 一行文字溢出部分用... 代替<br>
+const noWrap = () =&gt; {<br>
+return <code>text-overflow: ellipsis; overflow: hidden; white-space: nowrap;</code><br>
+}</p>
+<p>export default {<br>
+'theme-color': '#d44439',<br>
+'theme-color-shadow': 'rgba (212, 68, 57, .5)',<br>
+'font-color-light': '#f1f1f1',<br>
+'font-color-desc': '#2E3030',<br>
+'font-color-desc-v2': '#bba8a8',// 略淡<br>
+'font-size-ss': '10px',<br>
+'font-size-s': '12px',<br>
+'font-size-m': '14px',<br>
+'font-size-l': '16px',<br>
+'font-size-ll': '18px',<br>
+&quot;border-color&quot;: '#e4e4e4',<br>
+'background-color': '#f2f3f4',<br>
+'background-color-shadow': 'rgba (0, 0, 0, 0.3)',<br>
+'highlight-background-color': '#fff',<br>
+extendClick,<br>
+noWrap<br>
+}</p>
+<h3 id="顶部栏开发">顶部栏开发</h3>
+<ol>
+<li>home/目录下创建 style.js 创建样式<br>
+import styled from'styled-components';<br>
+import style from '../../assets/global-style';</li>
+</ol>
+<p>export const Top = styled.div<code>display: flex; flex-direction: row; justify-content: space-between; padding: 5px 10px; background: ${style [&quot;theme-color&quot;]}; &amp;&gt;span { line-height: 40px; color: #f1f1f1; font-size: 20px; &amp;.iconfont { font-size: 25px; } }</code><br>
+很简单的布局和样式，就不过多解释了。接下来在 Home 组件应用这些样式，</p>
+<pre><code class="language-javascript">//src/appliction/Home/index.js
+import React from 'react';
+import { renderRoutes } from &quot;react-router-config&quot;;
+import { Top } from './style';
+
+function Home (props) {
+  const { route } = props;
+
+  return (
+    &lt;div&gt;
+      &lt;Top&gt;
+        &lt;span className=&quot;iconfont menu&quot;&gt;&amp;#xe65c;&lt;/span&gt;
+        &lt;span className=&quot;title&quot;&gt;WebApp&lt;/span&gt;
+        &lt;span className=&quot;iconfont search&quot;&gt;&amp;#xe62b;&lt;/span&gt;
+      &lt;/Top&gt;
+      { renderRoutes (route.routes) }
+    &lt;/div&gt;
+  )
+}
+</code></pre>
+<p>export default React.memo (Home);<br>
+接着来编写上面的 tab 栏，先定义样式:</p>
+<pre><code class="language-javascript">export const Tab = styled.div`
+  height: 44px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background: ${style [&quot;theme-color&quot;]};
+  a {
+    flex: 1;
+    padding: 2px 0;
+    font-size: 14px;
+    color: #e4e4e4;
+    &amp;.selected {
+      span {
+        padding: 3px 0;
+        font-weight: 700;
+        color: #f1f1f1;
+        border-bottom: 2px solid #f1f1f1;
+      }
+    }
+  }
+`
+export const TabItem = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+</code></pre>
+<p>在 Home 组件中使用:</p>
+<pre><code class="language-javascript">import React from 'react';
+import { renderRoutes } from &quot;react-router-config&quot;;
+import {
+  Top,
+  Tab,
+  TabItem,
+} from './style';
+import { NavLink } from 'react-router-dom';// 利用 NavLink 组件进行路由跳转
+
+function Home (props){
+  const { route } = props;
+
+  return (
+    &lt;div&gt;
+      &lt;Top&gt;
+        &lt;span className=&quot;iconfont menu&quot;&gt;&amp;#xe65c;&lt;/span&gt;
+        &lt;span className=&quot;title&quot;&gt;Web App&lt;/span&gt;
+        &lt;span className=&quot;iconfont search&quot;&gt;&amp;#xe62b;&lt;/span&gt;
+      &lt;/Top&gt;
+      &lt;Tab&gt;
+        &lt;NavLink to=&quot;/recommend&quot; activeClassName=&quot;selected&quot;&gt;&lt;TabItem&gt;&lt;span &gt; 推荐 &lt;/span&gt;&lt;/TabItem&gt;&lt;/NavLink&gt;
+        &lt;NavLink to=&quot;/singers&quot; activeClassName=&quot;selected&quot;&gt;&lt;TabItem&gt;&lt;span &gt; 歌手 &lt;/span&gt;&lt;/TabItem&gt;&lt;/NavLink&gt;
+        &lt;NavLink to=&quot;/rank&quot; activeClassName=&quot;selected&quot;&gt;&lt;TabItem&gt;&lt;span &gt; 排行榜 &lt;/span&gt;&lt;/TabItem&gt;&lt;/NavLink&gt;
+      &lt;/Tab&gt;
+      { renderRoutes (route.routes) }
+    &lt;/div&gt;
+  );
+}
+ 
+export default React.memo (Home);
+</code></pre>
+<p>打开页面，现在一个像样的 WebApp 头部就出来了，并且点击不同的 tab</p>
+<h2 id="三-redux准备">三、redux准备</h2>
+<p>成熟的状态管理库 实现单一数据源</p>
+<h3 id="依赖安装">依赖安装</h3>
+<pre><code class="language-shell">npm install redux redux-thunk redux-immutable react-redux immutable --save
+</code></pre>
+<h3 id="创建store">创建store</h3>
+<p>store文件夹下创建index.js reducer.js</p>
+<h3 id="项目注入store">项目注入store</h3>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[React Hooks 与 Immutable 数据流实战 note04]]></title>
+        <id>https://billtsu.github.io/post/react-hooks-yu-immutable-shu-ju-liu-shi-zhan-note02/</id>
+        <link href="https://billtsu.github.io/post/react-hooks-yu-immutable-shu-ju-liu-shi-zhan-note02/">
+        </link>
+        <updated>2021-02-06T06:43:37.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="脚手架初始化">脚手架初始化</h3>
+<pre><code class="language-shell">
+create-react-app cloud-music
+
+cd cloud-music
+
+npm start
+
+</code></pre>
+<h3 id="目录说明">目录说明</h3>
+<pre><code class="language-html">├── App.js // 根组件
+├── api // 网络请求代码，工具类函数和相关配置
+├── application // 项目核心功能
+├── assets // 字体配置及全局样式
+├── baseUI // 基础UI的轮子
+├── components // 可复用UI组件
+├── index.js // 入口文件
+├── routes // 路由配置文件
+├── serviceWorker.js  // PWA 离线应用配置
+├── store // redux相关文件
+└── style.js //默认样式 // css-in-js
+这里只涉及src目录下的文件的处理
+</code></pre>
+<h4 id="默认样式和字体图标的准备">默认样式和字体图标的准备</h4>
+<p>本项目采用 styled-components 进行开发，利用css-in-js的方式<br>
+![why to use styled-components]https://juejin.cn/post/6844903878580764686<br>
+主要优势是工程化方面有优势</p>
+<p>安装 styled-components</p>
+<ol>
+<li>style.js 中创建并导出 GlobalStyle</li>
+<li>App.js 导入 GlobalStyle</li>
+<li>导入阿里图标 ![阿里图标]https://www.iconfont.cn/ 修改 iconfont.css 需要改成 iconfont.js</li>
+<li>字体引入 import { IconStyle } from './assets/iconfont/iconfont';</li>
+<li>项目运行 SKIP_PREFLIGHT_CHECK=true 在根目录里面.env中添加，防止全局安装的bable与之冲突，先这么处理着</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[React Hooks 与 Immutable 数据流实战 note01]]></title>
+        <id>https://billtsu.github.io/post/react-hooks-yu-immutable-shu-ju-liu-shi-zhan-note01/</id>
+        <link href="https://billtsu.github.io/post/react-hooks-yu-immutable-shu-ju-liu-shi-zhan-note01/">
+        </link>
+        <updated>2021-02-05T04:55:19.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="一-项目简介及技术栈">一、项目简介及技术栈</h2>
+<p>本小册的项目是以 React 全家桶 (包含 hooks) 以及 immutable 数据流为基础打造的一款高质量的移动端音乐类 WebApp 。</p>
+<h3 id="前端部分">前端部分</h3>
+<ul>
+<li>react v16.8 全家桶 react react-router 构建MVVM框架</li>
+<li>redux 状态管理</li>
+<li>redux-thunk 处理异步逻辑 redux 中间件</li>
+<li>immutable 持久性数据结构处理库</li>
+<li>react-lazyload react懒加载库</li>
+<li>better-scroll 提升移动端滑动体验</li>
+<li>axios 请求后端api</li>
+</ul>
+<h3 id="后端">后端</h3>
+<p>采用 github 上开源的 NodeJS 版 api 接口 [NeteaseCloudMusicApi]https://github.com/Binaryify/NeteaseCloudMusicApi，提供音乐数据。</p>
+<h3 id="其他">其他</h3>
+<ul>
+<li>create-react-app</li>
+<li>eslint</li>
+<li>iconfont</li>
+<li>fastclick 移动端解决点击延迟300ms的问题</li>
+</ul>
+<h2 id="二-项目规范">二、项目规范</h2>
+<ol>
+<li>class 组件不用 使用hook 统一函数组件</li>
+<li>组件状态用hooks处理，凡是业务数据放在redux管理</li>
+<li>ajax请求以及后续数据处理代码 放在actionCreator中，由redux-thunk处理，精简组件代码</li>
+<li>每个容器独立reducer，然后全局store下通过redux的combineReducer方法合并</li>
+<li>JS变量含函数名 小驼峰，组件名或者styled-component导出的样式容器使用大驼峰，常用名所有字母大写</li>
+<li>普通CSS类名小写，单词下划线连接，CSS动画钩子类中单词用-连接</li>
+<li>凡是props中有的数据，全部在组件最前面提前解构赋值，并且，获得属性名和方法名要分开声明，父组件获取props和通过react-redux映射获得的props也要分开声明</li>
+<li>useEffect 统一写在最前面，紧跟着props解构赋值代码后</li>
+<li>负责返回JSX的方法，统一放在最后，中间不穿插事件和其他处理逻辑</li>
+<li>mapDispatchToProps返回的函数中，函数名为xxDispatch，以免与现有action冲突</li>
+<li>每个组件使用memo包裹，更新之前与props对比，如果不变则不更新</li>
+</ol>
+<h2 id="三-项目整体架构及演示">三、 项目整体架构及演示</h2>
+<p>[React Hooks + Immutable 数据流项目架构图]https://user-gold-cdn.xitu.io/2019/12/10/16ef01876df7d36d?imageslim</p>
+<h2 id="四-目录及对应章节">四、 目录及对应章节</h2>
+<pre><code class="language-html">chapter1 和 chapter2 已经在第 4 节和第 5 节声明。
+6-9 节 -&gt; chapter3
+10-12 节 -&gt; chapter4
+13-14 节 -&gt; chapter5
+15-19 节 -&gt; chapter6
+20-22 节 -&gt; chapter7
+23-28 节 -&gt; chapter8
+28-31 节 -&gt; chapter9
+32-34 节 -&gt; chapter10
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[React ]]></title>
+        <id>https://billtsu.github.io/post/react/</id>
+        <link href="https://billtsu.github.io/post/react/">
+        </link>
+        <updated>2021-02-03T02:38:45.000Z</updated>
+        <content type="html"><![CDATA[<p>https://yuchengkai.cn/react/2019-06-04.html#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E8%B0%83%E5%BA%A6%EF%BC%9F</p>
+<p>JS 和 渲染引擎是互斥关系，JS执行代码 渲染引擎停止。复杂组件渲染 调用栈长 如有复杂操作，会阻塞引擎，用户体验差<br>
+时间分片  react 根据优先级分配expirationTime，过期时间到来前，处理优先级高的任务。高优先级也可以打断低优先级任务，造成某些生命周期函数多次执行，从而实现在不影响用户体验的情况下分段计算更新</p>
+<p>react 调度</p>
+<ol>
+<li>计算任务expriationTime</li>
+<li>实现 requestidlecallback 的polyfill版本</li>
+</ol>
+<h2 id="expriationtime-计算方式">expriationTime 计算方式</h2>
+<p>当前时间 + 常量： 当前时间取精度高点的 performance.now()</p>
+<pre><code class="language-javascript">// 五种优先级
+var ImmediatePriority = 1;
+var UserBlockingPriority = 2;
+var NormalPriority = 3;
+var LowPriority = 4;
+var IdlePriority = 5;
+// 对应数值
+var maxSigned31BitInt = 1073741823;
+// Times out immediately
+var IMMEDIATE_PRIORITY_TIMEOUT = -1;
+// Eventually times out
+var USER_BLOCKING_PRIORITY = 250;
+var NORMAL_PRIORITY_TIMEOUT = 5000;
+var LOW_PRIORITY_TIMEOUT = 10000;
+// Never times out
+var IDLE_PRIORITY = maxSigned31BitInt;
+</code></pre>
+<p>假设当前时间为 5000 并且分别有两个优先级不同的任务要执行。前者属于 ImmediatePriority，后者属于 UserBlockingPriority，那么两个任务计算出来的时间分别为 4999 和 5250。通过这个时间可以比对大小得出谁的优先级高，也可以通过减去当前时间获取任务的 timeout。</p>
+<p>requestIdleCallback<br>
+RunTask [<code>RunTask</code>] UpdateRendering IdleCallback[IdleCallback]:frame #1<br>
+浏览器空闲时期一次调用，可在事件循环中执行任务不会对动画交互产生影响<br>
+这个函数的兼容性并不是很好，并且它还有一个致命的缺陷：</p>
+<p>requestIdleCallback is called only 20 times per second - Chrome on my 6x2 core Linux machine, it's not really useful for UI work.</p>
+<p>也就是说 requestIdleCallback 只能一秒调用回调 20 次，这个完全满足不了现有的情况，由此 React 团队才打算自己实现这个函数<br>
+函数的核心只有一点，如何多次在浏览器空闲时且是渲染后才调用回调方法？<br>
+那么肯定得使用定时器了。在多种定时器中，唯有 requestAnimationFrame 具备一定的精确度，因此 requestAnimationFrame 就是当下实现 requestIdleCallback 的一个步骤<br>
+requestAnimationFrame 的回调方法会在每次重绘前执行，另外它还存在一个瑕疵：页面处于后台时该回调函数不会执行，因此我们需要对于这种情况做个补救措施</p>
+<pre><code class="language-javascript">rAFID = requestAnimationFrame(function(timestamp) {
+	// cancel the setTimeout
+	localClearTimeout(rAFTimeoutID);
+	callback(timestamp);
+});
+rAFTimeoutID = setTimeout(function() {
+	// 定时 100 毫秒是算是一个最佳实践
+	localCancelAnimationFrame(rAFID);
+	callback(getCurrentTime());
+}, 100);
+</code></pre>
+<p>当 requestAnimationFrame 不执行时，会有 setTimeout 去补救，两个定时器内部可以互相取消对方。</p>
+<p>使用 requestAnimationFrame 只完成了多次执行这一步操作，接下来我们需要实现如何知道当前浏览器是否空闲呢？</p>
+<p>[life of frame]https://yck-1254263422.cos.ap-shanghai.myqcloud.com/blog/2019-06-04-155147.png</p>
+<p>大家都知道在一帧当中，浏览器可能会响应用户的交互事件、执行 JS、进行渲染的一系列计算绘制。假设当前我们的浏览器支持 1 秒 60 帧，那么也就是说一帧的时间为 16.6 毫秒。如果以上这些操作超过了 16.6 毫秒，那么就会导致渲染没有完成并出现掉帧的情况，继而影响用户体验；如果以上这些操作没有耗时 16.6 毫秒的话，那么我们就认为当下存在空闲时间让我们可以去执行任务。</p>
+<p>因此接下去我们需要计算出当前帧是否还有剩余时间让我们使用</p>
+<p>简单来说就是假设当前时间为 5000，浏览器支持 60 帧，那么 1 帧近似 16 毫秒，那么就会计算出下一帧时间为 5016。<br>
+得出下一帧时间以后，我们只需对比当前时间是否小于下一帧时间即可，这样就能清楚地知道是否还有空闲时间去执行任务。</p>
+<p>那么最后一步操作就是如何在渲染以后才去执行任务。这里就需要用到事件循环的知识了</p>
+<p>[事件循环机制]https://yck-1254263422.cos.ap-shanghai.myqcloud.com/blog/2019-06-04-155148.png</p>
+<p>组件更新流程一</p>
+<ol>
+<li>setstate 批量更新如何实现</li>
+<li>fiber</li>
+<li>调度任务</li>
+</ol>
+<p>Fiber 重新实现了 React 的核心算法，带来了杀手锏增量更新功能</p>
+<ul>
+<li>新的数据结构fiber</li>
+<li>调度器<br>
+数据结构 任务拆分粒度 fiber<br>
+每个fiber是一个工作单元，执行更新流程就是反复寻找工作单元并执行，这样就实现了任务拆分<br>
+拆分的目的就是 控制stack frame 调用栈的内容，随时随地执行。使得每运行一个工作单元后可以按照情况继续执行或者中断工作，中断的决定权在于调度算法<br>
+fiber 内部存储很多上下文信息，可以认为是改版后的虚拟DOM，同样也对应了组件实例和DOM元素。同时fiber也会组成fiber tree，结构不是树，而是链表</li>
+</ul>
+<pre><code class="language-javascript">{
+  ...
+  // 浏览器环境下指 DOM 节点
+  stateNode: any,
+
+  // 形成列表结构
+  return: Fiber | null,
+  child: Fiber | null,
+  sibling: Fiber | null,
+
+  // 更新相关
+  pendingProps: any,  // 新的 props
+  memoizedProps: any,  // 旧的 props
+  // 存储 setState 中的第一个参数
+  updateQueue: UpdateQueue&lt;any&gt; | null,
+  memoizedState: any, // 旧的 state
+
+  // 调度相关
+  expirationTime: ExpirationTime,  // 任务过期时间
+
+  // 大部分情况下每个 fiber 都有一个替身 fiber
+  // 在更新过程中，所有的操作都会在替身上完成，当渲染完成后，
+  // 替身会代替本身
+  alternate: Fiber | null,
+
+  // 先简单认为是更新 DOM 相关的内容
+  effectTag: SideEffectTag, // 指这个节点需要进行的 DOM 操作
+  // 以下三个属性也会形成一个链表
+  nextEffect: Fiber | null, // 下一个需要进行 DOM 操作的节点
+  firstEffect: Fiber | null, // 第一个需要进行 DOM 操作的节点
+  lastEffect: Fiber | null, // 最后一个需要进行 DOM 操作的节点，同时也可用于恢复任务
+  ....
+}
+Fiber 和 fiber 不是同一个概念。前者代表新的调和器，后者代表 fiber node，也可以认为是改进后的虚拟 DOM
+</code></pre>
+<p>调度器</p>
+<p>有更新任务发生时候，调度器按照策略给任务分配优先级，必然动画优先级高，离屏元素的更新优先级会低<br>
+通过优先级我没获取更新任务必须执行的截止时间，优先级高，截止时间近，反之亦然。截止时间用来判断任务是否过期，如果过期任务会马上执行<br>
+通过调度器实现 <code>requestIdleCallback</code> 函数来做到在浏览器空闲的时候执行更新任务<br>
+1.简单说就是 通过定时器，获取每一帧结束时间，得到结束时间，就好判断当前距离结束时间的一个差值<br>
+如果还没有到结束时间，意味着我们可以继续执行更新任务；如果已经过了结束时间，那么意味着当前帧没有时间给我执行任务，必须将执行权交给浏览器，即打断更新任务<br>
+2.新的任务进来，调度器会根据两者优先级进行判断，如果高，就会打断当前任务开始新的任务 就是计算出来的截止时间</p>
+<p>diff策略<br>
+调和的过程<br>
+组件更新到底还是DOM更新，会有两个阶段<br>
+1.调和阶段，虚拟DOM的diff算法<br>
+2.提交阶段，将调和阶段的diff内容体现到DOM上</p>
+<pre><code class="language-javascript">class Test extends React.Component {
+  state = {
+    data: [{ key: 1, value: 1 }, { key: 2, value: 2 }]
+  };
+  componentDidMount() {
+    setTimeout(() =&gt; {
+      const data = [{ key: 0, value: 0 }, { key: 2, value: 2 }]
+      this.setState({
+        data
+      })
+    }, 3000);
+  }
+  render() {
+    const { data } = this.state;
+    return (
+      &lt;&gt;
+        { data.map(item =&gt; &lt;p key={item.key}&gt;{item.value}&lt;/p&gt;) }
+      &lt;/&gt;
+    )
+  }
+}
+// 具体 循环？寻找工作单元表现 
+while (nextUnitOfWork !== null &amp;&amp; !shouldYield()) {
+    nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
+}
+</code></pre>
+<p>while循环只有找不到工作单元或者需要打断的时候才会终止。找不到=》工作单元循环完成；打断=》调度器触发<br>
+更新操作开始时候，root永远是第一个工作单元，无论之前有没有被打断过工作<br>
+循环？寻找工作单元的流程比较简单，就是自顶向下再向上的一个循环，循环的规则如下<br>
+1.root永远是第一个工作单元，不管之前是否打断<br>
+2.首先判断当前节点是否存在第一个子节点，存在的话，就是下一个工作单元，并让下一个工作节点继续执行该规则，不存在就跳到3<br>
+3.判断当前节点是否slibing。如果就2，否则4<br>
+4.回到父节点 判断父节点是否存在，如果存在执行3，否则5<br>
+5.当前工作单元为null，完成整个循环</p>
+<p>class组件调和过程，<br>
+1.生命周期函数的处理<br>
+1.1 最先 compnentWillReceiveProps 触发条件有两个<br>
+1.1.1props前后有差别<br>
+1.1.2没有使用getDerivedStateFromProps 或者 getSnapshotBeforeUpdate 这两个新的周期函数。使用其中一个compnentWillReceiveProps不会被触发<br>
+满足上面条件函数就会被调用，react16中不被建议使用。调和阶段有可能被打断，因此该函数会重复调用</p>
+<pre><code class="language-javascript">//凡是调和阶段调用的生命周期函数都不被建议使用
+</code></pre>
+<p>then 需要处理 getDerivedStateFromProps函数获取到的最新的state<br>
+then 判断是否需要更新组件<br>
+1.2.1 判断是否存在shouldCompnentUpdate函数，存在就调用<br>
+1.2.2不存在函数就判断当前组件是否继承PureComponent。如果是，就浅判断前后的props及state得到结果<br>
+如果需要更新组件，先调用componentWillUpdate，然后处理componentDidUpdate getSnapshotBeforeUpdate函数<br>
+注意，调和阶段不会调用上面两个函数，而是打上tag，以便将来使用位运算知晓是否需要使用他们。effectTag这个属性在整个更新流程中重要。凡是涉及函数延迟调用、devTool处理、DOM更新都会使用effecttag</p>
+<pre><code class="language-javascript">if(typeof instance.componentDidUpdate === 'function'){
+    workInProgress.effectTag |=Update;
+}
+if (typeof instance.getSnapshotBeforeUpdate === 'function'){
+    workInProgress.effectTag|=Snapshot;
+}
+</code></pre>
+<p>2.调和子组件，也就是diff算法<br>
+处理完成生命周期后，会调用render函数获取新的child，用于之后与老的child对比<br>
+熟悉三个对象<br>
+returnFiber 父组件<br>
+currentFirstChild 父组件第一个child。<br>
+newChild 刚刚render出来的内容？<br>
+会判断newchild类型，知道类型就可以进行相关diff策略。可能是一个Fragment类型 or obj number string。处理简单<br>
+重点在 可迭代对象 array iterator。两者逻辑一致</p>
+<p>第一轮遍历<br>
+逻辑核心，复用和当前节点索引一致的老节点，如果出现不能复用就跳出遍历<br>
+逻辑规则</p>
+<ul>
+<li>新节点都是文本节点，可以复用，文本节点不需要key</li>
+<li>其他一律通过key判断是否相同来复用或者创建节点</li>
+</ul>
+<pre><code class="language-javascript">// 简化后的代码
+for (; oldFiber !== null &amp;&amp; newIdx &lt; newChildren.length; newIdx++) {
+  // 找到下一个老的子节点
+  nextOldFiber = oldFiber.sibling;
+  // 通过 oldFiber 和 newChildren[newIdx] 判断是否可以复用
+  // 并给复用出来的节点的 return 属性赋值 returnFiber
+  const newFiber = reuse(
+    returnFiber,
+    oldFiber,
+    newChildren[newIdx]
+  );
+  // 不能复用，跳出
+  if (newFiber === null) {
+    break;
+  }
+}
+</code></pre>
+<p>回到上例中，老的第一个节点key为1，新的为0，不相同跳循环，吃啥newIdx仍为0</p>
+<p>第二轮遍历<br>
+第一轮完成的结果可能？</p>
+<ul>
+<li>newChild 遍历完成</li>
+<li>老节点遍历完成<br>
+出现newChild遍历完成只需要将剩余老节点删除。删除逻辑就是设置 effectTag为Deletion<br>
+当出现渲染阶段处理的节点，会将节点放入父节点的efect链表中，如要删除的节点就会放入链表<br>
+当出现老节点遍历完成，只用把剩余新节点全部创建完成</li>
+</ul>
+<p>第三轮遍历<br>
+找到复用的老节点，并移动，不能复用就创建新的<br>
+如何复用并移动，<br>
+1.3.1 剩余老节点到map中<br>
+剩余老节点</p>
+<pre><code class="language-html">&lt;p key={1}&gt;1&lt;/p&gt;
+&lt;p key={2}&gt;2&lt;/p&gt;
+</code></pre>
+<p>map的结构为</p>
+<pre><code class="language-javascript">// 节点的key作为map的key
+// 如果节点不存在key 那么index为key
+const map = {
+    1:{},
+    2:{}
+}
+</code></pre>
+<p>在遍历过程中寻找新的节点key是否存在map中，有就复用，没有就创建。其实在部分复用及创建的逻辑和第一轮一致。<br>
+如果成功复用，需要将key从map中删除，并给复用的节点移动未知。移动位置，移动位置不涉及DOM操作，给effectTag赋值为Placement</p>
+<p>0120-0205<br>
+7271<br>
+8054<br>
+783<br>
+4600/783</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[某个开源项目]]></title>
+        <id>https://billtsu.github.io/post/mou-ge-kai-yuan-xiang-mu/</id>
+        <link href="https://billtsu.github.io/post/mou-ge-kai-yuan-xiang-mu/">
+        </link>
+        <updated>2021-02-03T01:58:51.000Z</updated>
+        <content type="html"><![CDATA[<p>http://zhikai.pro/html/setup.html<br>
+https://github.com/LouisYZK/Frodo/tree/master/python_web</p>
+<p>服务勉强跑起来了</p>
+<h2 id="说明">说明</h2>
+<pre><code class="language-shell">bash migrate.sh
+</code></pre>
+<p>这里执行第一次后手动修改alembic.ini文件配置信息<br>
+手动修改 python_web/alembic/env.py</p>
+<pre><code class="language-python3">import os 
+import sys 
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) +&quot;/../../&quot;)
+
+from models import Base
+target_metadata = Base.metadata
+
+</code></pre>
+<p>根据报错提示 修改 python_web/alembic/alembic/env.py 文件中的</p>
+<pre><code class="language-python3">import os 
+import sys 
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) +&quot;/../../&quot;)
+
+from models import Base
+target_metadata = Base.metadata
+
+</code></pre>
+<p><code>奇怪这里为啥alembic里面还要嵌套一层？</code></p>
+<h2 id="创建admin">创建admin</h2>
+<pre><code class="language-shell">Name: admin
+Email: admin@loacl.com
+Password: 
+Repeat for confirmation: 
+INSERT INTO &quot;user&quot; (id, created_at, email, name, avatar, password, active) VALUES (:id, :created_at, :email, :name, :avatar, :password, :active)
+User admin created!!! ID: 1
+</code></pre>
+<h2 id="go-安装-直接下载安装包">go 安装 直接下载安装包</h2>
+<p>https://golang.org/dl/</p>
+<pre><code class="language-shell">
+export GOROOT=/usr/local/go
+export GOPATH=/Users/xubiao/tmp/gocode
+export GOBIN=$GOROOT/bin
+export PATH=$PATH:$GOBIN
+
+go env
+go version
+
+</code></pre>
+<p>没有测试数据，好像还有文件没有提交，不浪费时间了，罪过</p>
 ]]></content>
     </entry>
 </feed>

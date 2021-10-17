@@ -1,0 +1,232 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>React Hooks 与 Immutable 数据流实战 note01 | 日常记录</title>
+<link rel="shortcut icon" href="https://billtsu.github.io/favicon.ico?v=1634444123429">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://billtsu.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="React Hooks 与 Immutable 数据流实战 note01 | 日常记录 - Atom Feed" href="https://billtsu.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="一、项目简介及技术栈
+本小册的项目是以 React 全家桶 (包含 hooks) 以及 immutable 数据流为基础打造的一款高质量的移动端音乐类 WebApp 。
+前端部分
+
+react v16.8 全家桶 react react-r..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://billtsu.github.io">
+  <img class="avatar" src="https://billtsu.github.io/images/avatar.png?v=1634444123429" alt="">
+  </a>
+  <h1 class="site-title">
+    日常记录
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              React Hooks 与 Immutable 数据流实战 note01
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-02-05
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="一-项目简介及技术栈">一、项目简介及技术栈</h2>
+<p>本小册的项目是以 React 全家桶 (包含 hooks) 以及 immutable 数据流为基础打造的一款高质量的移动端音乐类 WebApp 。</p>
+<h3 id="前端部分">前端部分</h3>
+<ul>
+<li>react v16.8 全家桶 react react-router 构建MVVM框架</li>
+<li>redux 状态管理</li>
+<li>redux-thunk 处理异步逻辑 redux 中间件</li>
+<li>immutable 持久性数据结构处理库</li>
+<li>react-lazyload react懒加载库</li>
+<li>better-scroll 提升移动端滑动体验</li>
+<li>axios 请求后端api</li>
+</ul>
+<h3 id="后端">后端</h3>
+<p>采用 github 上开源的 NodeJS 版 api 接口 [NeteaseCloudMusicApi]https://github.com/Binaryify/NeteaseCloudMusicApi，提供音乐数据。</p>
+<h3 id="其他">其他</h3>
+<ul>
+<li>create-react-app</li>
+<li>eslint</li>
+<li>iconfont</li>
+<li>fastclick 移动端解决点击延迟300ms的问题</li>
+</ul>
+<h2 id="二-项目规范">二、项目规范</h2>
+<ol>
+<li>class 组件不用 使用hook 统一函数组件</li>
+<li>组件状态用hooks处理，凡是业务数据放在redux管理</li>
+<li>ajax请求以及后续数据处理代码 放在actionCreator中，由redux-thunk处理，精简组件代码</li>
+<li>每个容器独立reducer，然后全局store下通过redux的combineReducer方法合并</li>
+<li>JS变量含函数名 小驼峰，组件名或者styled-component导出的样式容器使用大驼峰，常用名所有字母大写</li>
+<li>普通CSS类名小写，单词下划线连接，CSS动画钩子类中单词用-连接</li>
+<li>凡是props中有的数据，全部在组件最前面提前解构赋值，并且，获得属性名和方法名要分开声明，父组件获取props和通过react-redux映射获得的props也要分开声明</li>
+<li>useEffect 统一写在最前面，紧跟着props解构赋值代码后</li>
+<li>负责返回JSX的方法，统一放在最后，中间不穿插事件和其他处理逻辑</li>
+<li>mapDispatchToProps返回的函数中，函数名为xxDispatch，以免与现有action冲突</li>
+<li>每个组件使用memo包裹，更新之前与props对比，如果不变则不更新</li>
+</ol>
+<h2 id="三-项目整体架构及演示">三、 项目整体架构及演示</h2>
+<p>[React Hooks + Immutable 数据流项目架构图]https://user-gold-cdn.xitu.io/2019/12/10/16ef01876df7d36d?imageslim</p>
+<h2 id="四-目录及对应章节">四、 目录及对应章节</h2>
+<pre><code class="language-html">chapter1 和 chapter2 已经在第 4 节和第 5 节声明。
+6-9 节 -&gt; chapter3
+10-12 节 -&gt; chapter4
+13-14 节 -&gt; chapter5
+15-19 节 -&gt; chapter6
+20-22 节 -&gt; chapter7
+23-28 节 -&gt; chapter8
+28-31 节 -&gt; chapter9
+32-34 节 -&gt; chapter10
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%B8%80-%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B%E5%8F%8A%E6%8A%80%E6%9C%AF%E6%A0%88">一、项目简介及技术栈</a>
+<ul>
+<li><a href="#%E5%89%8D%E7%AB%AF%E9%83%A8%E5%88%86">前端部分</a></li>
+<li><a href="#%E5%90%8E%E7%AB%AF">后端</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96">其他</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8C-%E9%A1%B9%E7%9B%AE%E8%A7%84%E8%8C%83">二、项目规范</a></li>
+<li><a href="#%E4%B8%89-%E9%A1%B9%E7%9B%AE%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%BC%94%E7%A4%BA">三、 项目整体架构及演示</a></li>
+<li><a href="#%E5%9B%9B-%E7%9B%AE%E5%BD%95%E5%8F%8A%E5%AF%B9%E5%BA%94%E7%AB%A0%E8%8A%82">四、 目录及对应章节</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://billtsu.github.io/post/react/">
+              <h3 class="post-title">
+                React 
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://billtsu.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

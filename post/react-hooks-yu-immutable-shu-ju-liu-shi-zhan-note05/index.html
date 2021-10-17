@@ -1,0 +1,428 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>React Hooks 与 Immutable 数据流实战 note05 | 日常记录</title>
+<link rel="shortcut icon" href="https://billtsu.github.io/favicon.ico?v=1634444123429">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://billtsu.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="React Hooks 与 Immutable 数据流实战 note05 | 日常记录 - Atom Feed" href="https://billtsu.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="搭建项目基本骨架【磨刀不误砍柴工】
+对应分支 chapter2
+![原始仓]https://github.com/sanyuan0704/react-cloud-music/tree/chapter2
+基本搭建三步走
+
+路由配置和应用部分
+..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://billtsu.github.io">
+  <img class="avatar" src="https://billtsu.github.io/images/avatar.png?v=1634444123429" alt="">
+  </a>
+  <h1 class="site-title">
+    日常记录
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              React Hooks 与 Immutable 数据流实战 note05
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-02-06
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>搭建项目基本骨架【磨刀不误砍柴工】<br>
+对应分支 chapter2<br>
+![原始仓]https://github.com/sanyuan0704/react-cloud-music/tree/chapter2</p>
+<p>基本搭建三步走</p>
+<ol>
+<li>路由配置和应用部分</li>
+<li>公共组件开发</li>
+<li>redux的store创建和引入</li>
+</ol>
+<h2 id="一-路由创建">一、路由创建</h2>
+<h3 id="路由文件编写">路由文件编写</h3>
+<p>应用结构从路由文件入手，整理思路<br>
+应用骨架 顶部固定内容及tab，下面对应不同功能组件</p>
+<ol>
+<li>安装依赖</li>
+</ol>
+<pre><code class="language-shell">npm install react-router react-router-dom react-router-config --save
+</code></pre>
+<ol start="2">
+<li>编写路由</li>
+</ol>
+<pre><code class="language-javascript">//routes/index.js
+import React from 'react';
+import { Redirect } from &quot;react-router-dom&quot;;
+import Home from '../application/Home';
+import Recommend from '../application/Recommend';
+import Singers from '../application/Singers';
+import Rank from '../application/Rank';
+
+export default [
+  {
+    path: &quot;/&quot;,
+    component: Home,
+    routes: [
+      {
+        path: &quot;/&quot;,
+        exact: true,
+        render: () =&gt; (
+          &lt;Redirect to={&quot;/recommend&quot;}/&gt;
+        )
+      },
+      {
+        path: &quot;/recommend&quot;,
+        component: Recommend
+      },
+      {
+        path: &quot;/singers&quot;,
+        component: Singers
+      },
+      {
+        path: &quot;/rank&quot;,
+        component: Rank
+      }
+    ]
+  }
+]
+</code></pre>
+<p>路由生效，在App根组件中导入路由配置</p>
+<pre><code class="language-javascript">import React from 'react';
+import { GlobalStyle } from  './style';
+import { renderRoutes } from 'react-router-config';//renderRoutes 读取路由配置转化为 Route 标签
+import { IconStyle } from './assets/iconfont/iconfont';
+import routes from './routes/index.js';
+import { HashRouter } from 'react-router-dom';
+
+function App () {
+  return (
+    &lt;HashRouter&gt;
+      &lt;GlobalStyle&gt;&lt;/GlobalStyle&gt;
+      &lt;IconStyle&gt;&lt;/IconStyle&gt;
+      { renderRoutes (routes) }
+    &lt;/HashRouter&gt;
+  )
+}
+
+export default App;
+</code></pre>
+<h3 id="新建组件文件">新建组件文件</h3>
+<pre><code class="language-javascript">//src/appliction/Home/index.js
+import React from 'react';
+
+function Home (props) {
+  return (
+    &lt;div&gt;Home&lt;/div&gt;
+  )
+}
+
+export default React.memo (Home);
+</code></pre>
+<p>然后类似的，创建 Recommend、Singers 和 Rank 组件。</p>
+<p>启动项目，打开页面，你可以看到 &quot;home&quot; 已经显示到屏幕，但是这还不够，我们需要展示下面的功能组件，但是你在地址后面加上 /recommend，却并没有显示 Recommend 组件相应的内容，因为 renderRoutes 这个方法只渲染一层路由，之前 Home 处于数组第一层，后面的功能组件在第二层，当然不能正常渲染啦。其实要解决这个问题也非常简单，只需在 Home 中再次调用 renderRoutes 即可。</p>
+<p>//src/appliction/Home/index.js<br>
+import React from 'react';<br>
+import { renderRoutes } from &quot;react-router-config&quot;;</p>
+<p>function Home (props) {<br>
+const { route } = props;</p>
+<p>return (<br>
+<div><br>
+<div>Home</div><br>
+{ renderRoutes (route.routes) }<br>
+</div><br>
+)<br>
+}</p>
+<p>export default React.memo (Home);<br>
+好，现在你可以访问 /recommend 路由，应该可以看到 Recommend 中的内容。同理，现在也可以正常访问其它的路由啦。</p>
+<h2 id="二-公共组件开发">二、公共组件开发</h2>
+<h3 id="全局样式开发">全局样式开发</h3>
+<p>assets/global-style.js<br>
+// 扩大可点击区域<br>
+const extendClick = () =&gt; {<br>
+return <code>position: relative; &amp;:before { content: ''; position: absolute; top: -10px; bottom: -10px; left: -10px; right: -10px; };</code><br>
+}<br>
+// 一行文字溢出部分用... 代替<br>
+const noWrap = () =&gt; {<br>
+return <code>text-overflow: ellipsis; overflow: hidden; white-space: nowrap;</code><br>
+}</p>
+<p>export default {<br>
+'theme-color': '#d44439',<br>
+'theme-color-shadow': 'rgba (212, 68, 57, .5)',<br>
+'font-color-light': '#f1f1f1',<br>
+'font-color-desc': '#2E3030',<br>
+'font-color-desc-v2': '#bba8a8',// 略淡<br>
+'font-size-ss': '10px',<br>
+'font-size-s': '12px',<br>
+'font-size-m': '14px',<br>
+'font-size-l': '16px',<br>
+'font-size-ll': '18px',<br>
+&quot;border-color&quot;: '#e4e4e4',<br>
+'background-color': '#f2f3f4',<br>
+'background-color-shadow': 'rgba (0, 0, 0, 0.3)',<br>
+'highlight-background-color': '#fff',<br>
+extendClick,<br>
+noWrap<br>
+}</p>
+<h3 id="顶部栏开发">顶部栏开发</h3>
+<ol>
+<li>home/目录下创建 style.js 创建样式<br>
+import styled from'styled-components';<br>
+import style from '../../assets/global-style';</li>
+</ol>
+<p>export const Top = styled.div<code>display: flex; flex-direction: row; justify-content: space-between; padding: 5px 10px; background: ${style [&quot;theme-color&quot;]}; &amp;&gt;span { line-height: 40px; color: #f1f1f1; font-size: 20px; &amp;.iconfont { font-size: 25px; } }</code><br>
+很简单的布局和样式，就不过多解释了。接下来在 Home 组件应用这些样式，</p>
+<pre><code class="language-javascript">//src/appliction/Home/index.js
+import React from 'react';
+import { renderRoutes } from &quot;react-router-config&quot;;
+import { Top } from './style';
+
+function Home (props) {
+  const { route } = props;
+
+  return (
+    &lt;div&gt;
+      &lt;Top&gt;
+        &lt;span className=&quot;iconfont menu&quot;&gt;&amp;#xe65c;&lt;/span&gt;
+        &lt;span className=&quot;title&quot;&gt;WebApp&lt;/span&gt;
+        &lt;span className=&quot;iconfont search&quot;&gt;&amp;#xe62b;&lt;/span&gt;
+      &lt;/Top&gt;
+      { renderRoutes (route.routes) }
+    &lt;/div&gt;
+  )
+}
+</code></pre>
+<p>export default React.memo (Home);<br>
+接着来编写上面的 tab 栏，先定义样式:</p>
+<pre><code class="language-javascript">export const Tab = styled.div`
+  height: 44px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background: ${style [&quot;theme-color&quot;]};
+  a {
+    flex: 1;
+    padding: 2px 0;
+    font-size: 14px;
+    color: #e4e4e4;
+    &amp;.selected {
+      span {
+        padding: 3px 0;
+        font-weight: 700;
+        color: #f1f1f1;
+        border-bottom: 2px solid #f1f1f1;
+      }
+    }
+  }
+`
+export const TabItem = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+</code></pre>
+<p>在 Home 组件中使用:</p>
+<pre><code class="language-javascript">import React from 'react';
+import { renderRoutes } from &quot;react-router-config&quot;;
+import {
+  Top,
+  Tab,
+  TabItem,
+} from './style';
+import { NavLink } from 'react-router-dom';// 利用 NavLink 组件进行路由跳转
+
+function Home (props){
+  const { route } = props;
+
+  return (
+    &lt;div&gt;
+      &lt;Top&gt;
+        &lt;span className=&quot;iconfont menu&quot;&gt;&amp;#xe65c;&lt;/span&gt;
+        &lt;span className=&quot;title&quot;&gt;Web App&lt;/span&gt;
+        &lt;span className=&quot;iconfont search&quot;&gt;&amp;#xe62b;&lt;/span&gt;
+      &lt;/Top&gt;
+      &lt;Tab&gt;
+        &lt;NavLink to=&quot;/recommend&quot; activeClassName=&quot;selected&quot;&gt;&lt;TabItem&gt;&lt;span &gt; 推荐 &lt;/span&gt;&lt;/TabItem&gt;&lt;/NavLink&gt;
+        &lt;NavLink to=&quot;/singers&quot; activeClassName=&quot;selected&quot;&gt;&lt;TabItem&gt;&lt;span &gt; 歌手 &lt;/span&gt;&lt;/TabItem&gt;&lt;/NavLink&gt;
+        &lt;NavLink to=&quot;/rank&quot; activeClassName=&quot;selected&quot;&gt;&lt;TabItem&gt;&lt;span &gt; 排行榜 &lt;/span&gt;&lt;/TabItem&gt;&lt;/NavLink&gt;
+      &lt;/Tab&gt;
+      { renderRoutes (route.routes) }
+    &lt;/div&gt;
+  );
+}
+ 
+export default React.memo (Home);
+</code></pre>
+<p>打开页面，现在一个像样的 WebApp 头部就出来了，并且点击不同的 tab</p>
+<h2 id="三-redux准备">三、redux准备</h2>
+<p>成熟的状态管理库 实现单一数据源</p>
+<h3 id="依赖安装">依赖安装</h3>
+<pre><code class="language-shell">npm install redux redux-thunk redux-immutable react-redux immutable --save
+</code></pre>
+<h3 id="创建store">创建store</h3>
+<p>store文件夹下创建index.js reducer.js</p>
+<h3 id="项目注入store">项目注入store</h3>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%B8%80-%E8%B7%AF%E7%94%B1%E5%88%9B%E5%BB%BA">一、路由创建</a>
+<ul>
+<li><a href="#%E8%B7%AF%E7%94%B1%E6%96%87%E4%BB%B6%E7%BC%96%E5%86%99">路由文件编写</a></li>
+<li><a href="#%E6%96%B0%E5%BB%BA%E7%BB%84%E4%BB%B6%E6%96%87%E4%BB%B6">新建组件文件</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8C-%E5%85%AC%E5%85%B1%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91">二、公共组件开发</a>
+<ul>
+<li><a href="#%E5%85%A8%E5%B1%80%E6%A0%B7%E5%BC%8F%E5%BC%80%E5%8F%91">全局样式开发</a></li>
+<li><a href="#%E9%A1%B6%E9%83%A8%E6%A0%8F%E5%BC%80%E5%8F%91">顶部栏开发</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89-redux%E5%87%86%E5%A4%87">三、redux准备</a>
+<ul>
+<li><a href="#%E4%BE%9D%E8%B5%96%E5%AE%89%E8%A3%85">依赖安装</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BAstore">创建store</a></li>
+<li><a href="#%E9%A1%B9%E7%9B%AE%E6%B3%A8%E5%85%A5store">项目注入store</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://billtsu.github.io/post/react-hooks-yu-immutable-shu-ju-liu-shi-zhan-note02/">
+              <h3 class="post-title">
+                React Hooks 与 Immutable 数据流实战 note04
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://billtsu.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

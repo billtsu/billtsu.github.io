@@ -1,0 +1,254 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>React Hooks 与 Immutable 数据流实战 Review | 日常记录</title>
+<link rel="shortcut icon" href="https://billtsu.github.io/favicon.ico?v=1634444123429">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://billtsu.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="React Hooks 与 Immutable 数据流实战 Review | 日常记录 - Atom Feed" href="https://billtsu.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="reconciliation
+减少渲染
+shouldComponentUpdate
+会在 props or state 发生变化时返回 true，表示组件重新渲染，从而调用render，控制VDOM的diff过程
+节点类型相同 返回fals..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://billtsu.github.io">
+  <img class="avatar" src="https://billtsu.github.io/images/avatar.png?v=1634444123429" alt="">
+  </a>
+  <h1 class="site-title">
+    日常记录
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              React Hooks 与 Immutable 数据流实战 Review
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-02-22
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>reconciliation</p>
+<p>减少渲染</p>
+<p>shouldComponentUpdate</p>
+<p>会在 props or state 发生变化时返回 true，表示组件重新渲染，从而调用render，控制VDOM的diff过程</p>
+<p>节点类型相同 返回false 不需要对子节点进行比较，否则遍历</p>
+<p>节点不同，直接删除，后替换</p>
+<p>一般 scu 会比较props和state中是否发生变化 浅比较，判断是否为true，触发reconciliation, ex purecomponent api</p>
+<p>React dom diff</p>
+<ol>
+<li>只比较同层节点，不会跨层比较节点</li>
+<li>不同两个节点产生不同的树，类型不同，原来节点后的全部替换</li>
+<li>通过key指定哪些元素相同</li>
+</ol>
+<p>执行流程</p>
+<ol>
+<li>
+<p>元素不同类型 略</p>
+</li>
+<li>
+<p>相同类型</p>
+<p>2.1 都是dom节点，对比节点className 等属性，处理完后，对子节点递归</p>
+<p>2.2 组件元素 实例不变，更新props。调用组件实例的componentWillReceiveProps方法，通过，scu 返回值判断是否要调用render</p>
+<p>处理完成后对子节点进行递归</p>
+<p>2.3 特殊情况 遍历子元素列表</p>
+<p>引入key 值，通过key判断是否存在，如果只是位置调换，只用调节位置，不用更新整个节点</p>
+<p>key选取 必须列表唯一</p>
+</li>
+</ol>
+<p>其实memo就是一个语法糖，内部实现也是基于PureComponent的，创建了个新的类组件继承下PureComponent</p>
+<p>列表渲染，key 属性的值 的最佳实践是什么？</p>
+<p>前后端协作，后端指定唯一标识，前端设置这个标识为key</p>
+<p>除了常见的渲染列表，我们需要增加key属性；还有什么其他场景，我们需要主动增加key这个属性呢？</p>
+<p>假如有一个带开场动画的弹窗，弹窗在这个页面的生命周期需要多次展现消失，如果没有key，第二次弹窗展现的时候，不会有动画效果</p>
+<p>不是很明白为什么比较两个树时间复杂度要O(n^3),能写一下具体的比较代码吗..</p>
+<p>求两棵树的编辑距离。代码不写了，给你一些链接参考吧。 什么是编辑距离？ <a href="https://leetcode-cn.com/problems/edit-distance/">![https://leetcode-cn.com/problems/edit-distance/](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDI3RkZGIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS13aWR0aD0iLjgxOCI+CiAgICAgICAgPHBhdGggZD0iTTguMDMgNS4yNzZsMS41ODUtMS41ODRjMS4wOTMtMS4wOTMgMi45My0xLjAzIDQuMS4xNDEgMS4xNzIgMS4xNzIgMS4yMzYgMy4wMDguMTQyIDQuMTAyTDEyLjY3IDkuMTIzbC0uNzkyLjc5MmMtMS4wOTMgMS4wOTMtMi45MyAxLjAzLTQuMS0uMTQyIi8+CiAgICAgICAgPHBhdGggZD0iTTkuMjE5IDEyLjU3M2wtMS41ODQgMS41ODRjLTEuMDk0IDEuMDk0LTIuOTMgMS4wMy00LjEwMi0uMTQxLTEuMTcxLTEuMTcyLTEuMjM0LTMuMDA4LS4xNDEtNC4xMDFMNC41OCA4LjcyN2wuNzkyLS43OTJjMS4wOTMtMS4wOTQgMi45My0xLjAzIDQuMTAxLjE0MSIvPgogICAgPC9nPgo8L3N2Zz4K)leetcode-cn.com</a> diff 如何从O(n^3)到 O(n)？ <a href="https://www.zhihu.com/question/66851503">![https://www.zhihu.com/question/66851503](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDI3RkZGIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS13aWR0aD0iLjgxOCI+CiAgICAgICAgPHBhdGggZD0iTTguMDMgNS4yNzZsMS41ODUtMS41ODRjMS4wOTMtMS4wOTMgMi45My0xLjAzIDQuMS4xNDEgMS4xNzIgMS4xNzIgMS4yMzYgMy4wMDguMTQyIDQuMTAyTDEyLjY3IDkuMTIzbC0uNzkyLjc5MmMtMS4wOTMgMS4wOTMtMi45MyAxLjAzLTQuMS0uMTQyIi8+CiAgICAgICAgPHBhdGggZD0iTTkuMjE5IDEyLjU3M2wtMS41ODQgMS41ODRjLTEuMDk0IDEuMDk0LTIuOTMgMS4wMy00LjEwMi0uMTQxLTEuMTcxLTEuMTcyLTEuMjM0LTMuMDA4LS4xNDEtNC4xMDFMNC41OCA4LjcyN2wuNzkyLS43OTJjMS4wOTMtMS4wOTQgMi45My0xLjAzIDQuMTAxLjE0MSIvPgogICAgPC9nPgo8L3N2Zz4K)www.zhihu.com</a></p>
+<p>优化方案</p>
+<h3 id="一-purecomponent-memo-进行浅比较">一、purecomponent memo 进行浅比较</h3>
+<pre><code class="language-javascript">// shallowequal
+// is(a,b) // 第一关：基础数据类型直接比较出结果
+// typeof a,b must object // 2 必须是obj
+// hasOwnProperty.call(b,keysa[i]) // 3 属性的长度进行比较 4 type比较 // 浅比较
+// 调用 state.a.push(&quot;2&quot;) 一旦属性的值为引用类型的时候浅比较就失灵了。
+state: {a: [&quot;1&quot;]} -&gt; state: {a: [&quot;1&quot;, &quot;2&quot;]}
+// 由于js 引用赋值，浅比较无法使用复杂结构组件
+</code></pre>
+<h3 id="二-scu-deep-comp">二、scu deep comp</h3>
+<pre><code class="language-javascript"> else { // 最后一次比较后添加对值的递归比较
+        if (!deepEqual (objA [keysA [i]], objB [keysA [i]])){
+            return false;
+        }
+    }
+// 样就达到了深层比对的效果。但是想想一种极端的情况，就是在属性有一万条的时候，只有最后一个属性发生了变化，那我们就不得已将一万条属性都遍历。这是非常浪费性能的。
+</code></pre>
+<h3 id="三-immutable数据结构-scu-memo浅层对比">三、immutable数据结构 scu memo浅层对比</h3>
+<p>回到问题的本质，无论是直接用浅层比对，还是进行深层比对，我们最终是想z知道组件的 props (或 state) 数据有无发生改变。</p>
+<p>immutable 数据一种利用结构共享形成的持久化数据结构，一旦有部分被修改，那么将会返回一个全新的对象，并且原来相同的节点会直接共享</p>
+<p>是吧！只更新了父节点，比直接比对所有的属性简直强太多，并且更新后返回了一个全新的引用，即使是浅比对也能感知到数据的改变。</p>
+<p>immutable 也有一些被部分开发者吐槽的点，首先是 immutable 对象和 JS 对象要注意转换，不能混用，这个大家注意适当的时候调用 toJS 或者 fromJS 即可，问题并不大。</p>
+<p>基本设计immutable api</p>
+<p>fromJS</p>
+<p>toJS</p>
+<p>get/getin</p>
+<p>set</p>
+<p>merge</p>
+<p>三元老师，下面是我的一些理解,优化方案二对 pureComponent 浅比较进行优化，以避免 <code>state.a.push(&quot;a&quot;)</code> 这样的操作造成错误。方案二的设计目的为了达到深层次的比较，以判断引用相同时对象的差异。但实际上，如果引用未发生变化，我们访问到的是同一个对象值，无法跟踪变更。相同引用的属性指向的对象始终是同一个对象，换句话说，我们的深层次比较中第四关的递归不过是判断同一个对象的属性值的差异，显然，它们将永远相等。方案二无法解决 pureComponent 渐层比较的问题，我们要想知道数据有无发生改变，必须保证数据的不可变性，从而引入 immutable，我们的方案三。</p>
+<p>不是你这样理解的，浅拷贝对比的是对象的引用，所以浅比较无效；而递归调用比较函数实现的是在对象本身而非引用上进行比较，也就是对比对象的属性和值，这就是深层比较。用方案三只是为了时间考量</p>
+<p>immutable这个库是不是有点太重了，如果只是做浅比较防止过度刷新的化，immer更合适些。</p>
+<p>是，在ts分支中我已经用immer重构了</p>
+<p>总结起来就是想在对react组件进行性能优化时，需要监测state或props的变化来判断是否render，而怎么监测变化=&gt;用浅比较，但浅比较存在更新对象属性时引用没变的问题，所以只要能解决这个问题，浅比较依然是好方案，因此immutable的出现解决的就是有变化就返回新引用，故而浅比较+immutable就是性能优化的利器，然后后面出现的Immer是比immutable更好的方案</p>
+<p>大数据量的情况下，序列化一次带来的性能消耗可能比重新diff还大</p>
+<p>immutable.js确实有这个问题。用immer更好</p>
+<p>请问大佬，直接用JSON.stringify比较的缺点是什么</p>
+<p>每次都是不一样的引用，无论如何都刷新</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E4%B8%80-purecomponent-memo-%E8%BF%9B%E8%A1%8C%E6%B5%85%E6%AF%94%E8%BE%83">一、purecomponent memo 进行浅比较</a></li>
+<li><a href="#%E4%BA%8C-scu-deep-comp">二、scu deep comp</a></li>
+<li><a href="#%E4%B8%89-immutable%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-scu-memo%E6%B5%85%E5%B1%82%E5%AF%B9%E6%AF%94">三、immutable数据结构 scu memo浅层对比</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://billtsu.github.io/post/react-hooks-yu-immutable-shu-ju-liu-shi-zhan-note07/">
+              <h3 class="post-title">
+                React Hooks 与 Immutable 数据流实战 note07
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://billtsu.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
